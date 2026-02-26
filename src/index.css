@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;600&family=Inter:wght@400;500;600;700&family=Mulish:wght@600&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  /* Brand Colors — RP Super Speciality Hospital */
+  --color-brand-orange: #F7941D;
+  --color-brand-navy: #1A2472;
+  --color-brand-navy-dark: #0D1240;
+  --color-brand-navy-light: #252b85;
+
+  /* Backgrounds */
+  --color-bg-light: #F0F4FF;
+  --color-bg-orange-light: #FFF4E6;
+  --color-bg-white: #FFFFFF;
+
+  /* Text */
+  --color-text-dark: #0D1240;
+  --color-text-muted: #667085;
+
+  /* Legacy / kept for backwards compat */
+  --color-primary: #F7941D;
+  --color-navy: #1A2472;
+  --color-card-green: #a3dac2;
+  --color-card-yellow: #f0da69;
+  --color-card-pink: #e7c2d4;
+  --color-card-blue: #92bdf6;
+  --color-bg-hero: #F0F4FF;
+
+  /* Fonts */
+  --font-manrope: 'Manrope', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-mulish: 'Mulish', sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: var(--font-manrope);
+    background-color: var(--color-bg-white);
+    color: var(--color-text-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+    /* Improve text rendering on mobile */
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Ensure images are responsive by default */
+  img, svg, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Improve touch targets for mobile - minimum 44x44px */
+  button, 
+  a[href],
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"],
+  label[for] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better input sizing on mobile */
+  input, 
+  textarea, 
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Prevent text overflow */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  /* Root container should not overflow */
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}
+
+/* Utility classes for responsive design */
+@layer utilities {
+  .container-responsive {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-responsive {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container-responsive {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-responsive {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .container-responsive {
+      max-width: 1440px;
+    }
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth transitions for responsive changes */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  }
+}
