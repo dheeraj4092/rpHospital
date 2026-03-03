@@ -103,8 +103,10 @@ export function initializeData() {
       'Thoracoscopy',
       'Sleep Study',
       'Allergy Testing',
+      'Asthma Management',
+      'Chronic Lung Disease Treatment',
+      'Respiratory Infection Management',
       'Pulmonary Function Tests',
-      'Respiratory Care',
     ],
     isActive: true,
     createdAt: new Date(),
@@ -116,10 +118,12 @@ export function initializeData() {
     name: 'Ophthalmology',
     description: 'Comprehensive eye care and surgical services',
     services: [
-      'Phaco Surgery',
-      'Pterygium Grafting',
+      'Cataract Surgery (Phaco)',
+      'Pterygium Surgery',
       'DCR Surgery',
-      'Cataract Surgery',
+      'Eye Checkups',
+      'Vision Assessment',
+      'Medical Eye Disorder Management',
       'Retinal Treatment',
       'Laser Procedures',
     ],
@@ -128,37 +132,156 @@ export function initializeData() {
     updatedAt: new Date(),
   };
 
-  const emergencyDept: Department = {
+  const neuroSurgeryDept: Department = {
     id: generateId(),
-    name: 'Emergency Care',
-    description: '24/7 emergency medical services with ICU facilities',
+    name: 'Neuro & Neuro Surgery',
+    description: 'Advanced neurological care and neurosurgical procedures',
     services: [
-      'Emergency Medical Care',
-      'ICU Services',
-      'Trauma Care',
-      'Critical Care',
-      '24/7 Ambulance',
+      'Brain Surgery',
+      'Spine Surgery',
+      'Stroke Management',
+      'Epilepsy Treatment',
+      'Neuro Rehabilitation',
+      'Brain Tumor Treatment',
+      'Spinal Cord Disorders',
     ],
     isActive: true,
     createdAt: new Date(),
     updatedAt: new Date(),
   };
 
-  dataStore.departments.push(pulmonologyDept, ophthalmologyDept, emergencyDept);
+  const generalSurgeryDept: Department = {
+    id: generateId(),
+    name: 'General Surgery',
+    description: 'Comprehensive surgical procedures and treatments',
+    services: [
+      'Laparoscopic Surgery',
+      'Hernia Repair',
+      'Appendectomy',
+      'Gallbladder Surgery',
+      'Gastrointestinal Surgeries',
+      'Thyroid Surgery',
+      'Breast Surgery',
+    ],
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const urologyDept: Department = {
+    id: generateId(),
+    name: 'Urology',
+    description: 'Expert care for urinary tract and male reproductive system',
+    services: [
+      'Kidney Stone Treatment',
+      'Prostate Treatment',
+      'Bladder Surgery',
+      'Urinary Tract Infections',
+      'Male Infertility Treatment',
+      'Urological Cancer Care',
+      'Minimally Invasive Procedures',
+    ],
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const nephrologyDept: Department = {
+    id: generateId(),
+    name: 'Nephrology',
+    description: 'Comprehensive kidney care and dialysis services',
+    services: [
+      'Dialysis Services',
+      'Kidney Disease Management',
+      'Hypertension Treatment',
+      'Kidney Transplant Evaluation',
+      'Chronic Kidney Disease Care',
+      'Electrolyte Disorders',
+      'Kidney Biopsy',
+    ],
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const orthopedicsDept: Department = {
+    id: generateId(),
+    name: 'Orthopaedics',
+    description: 'Advanced bone, joint, and muscle care',
+    services: [
+      'Joint Replacement Surgery',
+      'Fracture Treatment',
+      'Sports Injury Care',
+      'Arthroscopy',
+      'Spine Surgery',
+      'Arthritis Management',
+      'Trauma Care',
+    ],
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const entDept: Department = {
+    id: generateId(),
+    name: 'ENT',
+    description: 'Ear, Nose, and Throat specialist care',
+    services: [
+      'Ear Surgery',
+      'Sinus Treatment',
+      'Tonsillectomy',
+      'Adenoidectomy',
+      'Hearing Loss Treatment',
+      'Voice Disorders',
+      'Sleep Apnea Treatment',
+    ],
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const emergencyDept: Department = {
+    id: generateId(),
+    name: 'Emergency & Critical Care',
+    description: '24/7 emergency medical services with ICU facilities',
+    services: [
+      '24/7 Emergency Care',
+      'ICU Services',
+      'Critical Monitoring Facilities',
+      'Trauma Care',
+      'Emergency Ambulance',
+      'Cardiac Emergency',
+    ],
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  dataStore.departments.push(
+    pulmonologyDept,
+    ophthalmologyDept,
+    neuroSurgeryDept,
+    generalSurgeryDept,
+    urologyDept,
+    nephrologyDept,
+    orthopedicsDept,
+    entDept,
+    emergencyDept
+  );
 
   // Create Doctors
   const doctor1: Doctor = {
     id: generateId(),
     name: 'Dr. Rajendra Prasad Boddula',
-    qualifications: ['MBBS', 'DTCD', 'DNBC(NIMS)'],
-    specialty: 'Pulmonology',
+    qualifications: ['MBBS', 'DTCD', 'DNB (NIMS)', 'Certified Allergy Specialist'],
+    specialty: 'Pulmonology & Respiratory Medicine',
     experience: 15,
-    procedures: ['Bronchoscopy', 'Thoracoscopy', 'Sleep Study', 'Allergy Testing'],
-    timings: '10AM–7PM',
+    procedures: ['Bronchoscopy', 'Thoracoscopy', 'Sleep Study', 'Allergy Testing', 'Asthma & Immunology'],
+    timings: '10:00 AM – 7:00 PM',
     isGoldMedalist: true,
-    memberships: [],
+    memberships: ['Indian Sleep Disorders Association', 'Indian College of Allergy, Asthma & Applied Immunology'],
     photoUrl: '/dr-rajendraprasad.png', // Image loaded from /public folder
-    bio: 'Gold Medalist with over 15 years of experience in pulmonology and respiratory medicine. Specializes in advanced bronchoscopy procedures and sleep disorders.',
+    bio: 'Gold Medalist with over 15 years of experience in pulmonology and respiratory medicine. Specializes in advanced bronchoscopy procedures, thoracoscopy, sleep disorders, and certified in allergy testing and immunology. Expertise in managing asthma, chronic lung diseases, and respiratory infections.',
     departmentId: pulmonologyDept.id,
     isActive: true,
     createdAt: new Date(),
@@ -168,15 +291,15 @@ export function initializeData() {
   const doctor2: Doctor = {
     id: generateId(),
     name: 'Dr. Vanitha A',
-    qualifications: ['MBBS', 'DO(OSMI)', 'DNB'],
+    qualifications: ['MBBS', 'DO (OSM)', 'DNB – Ophthalmology'],
     specialty: 'Ophthalmology',
     experience: 10,
-    procedures: ['Phaco Surgery', 'Pterygium Grafting', 'DCR Surgery'],
-    timings: '10AM–7PM',
+    procedures: ['Phaco Surgery', 'Pterygium Surgery', 'DCR Surgery', 'Comprehensive Eye Care'],
+    timings: '10:00 AM – 7:00 PM',
     isGoldMedalist: false,
-    memberships: ['TOS', 'DOS'],
+    memberships: ['Telangana Ophthalmological Society (TOS)', 'Delhi Ophthalmological Society (DOS)'],
     photoUrl: '/dr-vanitha.png', // Image loaded from /public folder (will show initials if not found)
-    bio: 'Experienced ophthalmologist with expertise in advanced cataract surgery and oculoplastic procedures. Member of Telangana Ophthalmological Society and DOS.',
+    bio: 'Experienced ophthalmologist with over 10 years of expertise in advanced cataract surgery (Phaco), pterygium surgery, DCR surgery, and comprehensive eye care. Committed to providing evidence-based eye care and surgical excellence. Member of Telangana and Delhi Ophthalmological Societies.',
     departmentId: ophthalmologyDept.id,
     isActive: true,
     createdAt: new Date(),

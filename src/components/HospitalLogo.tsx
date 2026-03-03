@@ -18,7 +18,9 @@ export default function HospitalLogo({ height = 56, inverted = false }: Hospital
       style={{ 
         height: `${height}px`,
         width: 'auto',
-        filter: inverted ? 'brightness(0) invert(1)' : 'none'
+        filter: inverted ? 'brightness(0) invert(1) brightness(2)' : 'none',
+        objectFit: 'contain',
+        display: 'block'
       }}
       className="flex-shrink-0 select-none"
     />

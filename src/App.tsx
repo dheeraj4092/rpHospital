@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import Navbar from './components/Navbar'
+import SimpleNavbar from './components/SimpleNavbar'
+import FloatingNavigationDock from './components/FloatingNavigationDock'
 import HeroBanner from './components/HeroBanner'
 import LogoSection from './components/LogoSection'
 import AboutHospitalSection from './components/AboutHospitalSection'
@@ -9,6 +10,7 @@ import KeyHighlightsSection from './components/KeyHighlightsSection'
 import DoctorsSection from './components/DoctorsSection'
 import PhotoGallerySection from './components/PhotoGallerySection'
 import TestimonialsSection from './components/TestimonialsSection'
+import FAQSection from './components/FAQSection'
 import CTASection from './components/CTASection'
 import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
@@ -20,19 +22,23 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar onAppointmentClick={() => setIsAppointmentModalOpen(true)} />
-      <HeroBanner onAppointmentClick={() => setIsAppointmentModalOpen(true)} />
-      <LogoSection />
-      <AboutHospitalSection />
-      <MissionVisionSection />
-      <ServicesSection />
-      <KeyHighlightsSection />
-      <DoctorsSection />
-      <PhotoGallerySection />
-      <TestimonialsSection />
-      <CTASection />
-      <ContactSection />
-      <Footer />
+      <SimpleNavbar onAppointmentClick={() => setIsAppointmentModalOpen(true)} />
+      <FloatingNavigationDock />
+      <div className="pt-[60px] sm:pt-[72px]">
+        <HeroBanner onAppointmentClick={() => setIsAppointmentModalOpen(true)} />
+        <LogoSection />
+        <AboutHospitalSection />
+        <MissionVisionSection />
+        <ServicesSection />
+        <KeyHighlightsSection />
+        <DoctorsSection />
+        <PhotoGallerySection />
+        <TestimonialsSection />
+        <FAQSection />
+        <CTASection />
+        <ContactSection />
+        <Footer />
+      </div>
       <FloatingActionButtons />
       <AppointmentModal
         isOpen={isAppointmentModalOpen}

@@ -27,7 +27,7 @@ export default function KeyHighlightsSection() {
   ];
 
   return (
-    <section className="bg-white">
+    <section id="highlights" className="bg-white">
       <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24 max-w-[1440px] mx-auto">
         {/* Accreditations & Awards */}
         <div className="mb-16 md:mb-20">

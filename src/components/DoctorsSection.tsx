@@ -1,31 +1,8 @@
-import { useState, useEffect } from 'react';
 import MedicalCrossIcon from '../assets/icon-medical-cross.svg?react';
-import { api, type Doctor } from '../services/api';
+import { doctors } from '../data/doctors';
 import ExpandableDoctorCards from './ui/expandable-doctor-cards';
 
 export default function DoctorsSection() {
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const response = await api.getDoctors();
-        if (response.success && response.data) {
-          setDoctors(response.data);
-        }
-      } catch (err: any) {
-        console.error('Failed to fetch doctors:', err);
-        setError('Failed to load doctors');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDoctors();
-  }, []);
-
   return (
     <section id="doctors" style={{ backgroundColor: 'var(--color-bg-light)' }}>
       <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24 max-w-[1440px] mx-auto">
@@ -58,22 +35,8 @@ export default function DoctorsSection() {
           </p>
         </div>
 
-        {/* Loading State */}
-        {loading && (
-          <div className="text-center py-12">
-            <p style={{ color: 'var(--color-text-muted)' }}>Loading doctors...</p>
-          </div>
-        )}
-
-        {/* Error State */}
-        {error && (
-          <div className="text-center py-12">
-            <p className="text-red-500">{error}</p>
-          </div>
-        )}
-
         {/* Doctor cards with expandable functionality */}
-        {!loading && !error && <ExpandableDoctorCards doctors={doctors} />}
+        <ExpandableDoctorCards doctors={doctors} />
       </div>
     </section>
   );

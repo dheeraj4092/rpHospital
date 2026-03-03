@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import HospitalLogo from './HospitalLogo';
+import { FloatingDock } from './ui/floating-dock';
 import { scrollToSection, scrollToTop } from '../utils/scroll';
-
-const navLinks = [
-  { label: 'About us', id: 'about' },
-  { label: 'Services', id: 'services' },
-  { label: 'Doctors', id: 'doctors' },
-  { label: 'Gallery', id: 'gallery' },
-  { label: 'Contacts', id: 'contacts' },
-];
+import {
+  IconInfoCircle,
+  IconStethoscope,
+  IconUserHeart,
+  IconPhoto,
+  IconPhone,
+  IconTarget,
+  IconAward,
+  IconMessage,
+  IconHelp,
+} from '@tabler/icons-react';
 
 interface NavbarProps {
   onAppointmentClick: () => void;
@@ -31,9 +35,85 @@ export default function Navbar({ onAppointmentClick }: NavbarProps) {
     setIsMenuOpen(false);
   };
 
+  const dockLinks = [
+    {
+      title: 'About Us',
+      icon: (
+        <IconInfoCircle className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#about',
+    },
+    {
+      title: 'Mission',
+      icon: (
+        <IconTarget className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#mission',
+    },
+    {
+      title: 'Services',
+      icon: (
+        <IconStethoscope className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#services',
+    },
+    {
+      title: 'Why Choose Us',
+      icon: (
+        <IconAward className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#highlights',
+    },
+    {
+      title: 'Doctors',
+      icon: (
+        <IconUserHeart className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#doctors',
+    },
+    {
+      title: 'Gallery',
+      icon: (
+        <IconPhoto className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#gallery',
+    },
+    {
+      title: 'Testimonials',
+      icon: (
+        <IconMessage className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#testimonials',
+    },
+    {
+      title: 'FAQ',
+      icon: (
+        <IconHelp className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#faq',
+    },
+    {
+      title: 'Contact',
+      icon: (
+        <IconPhone className="h-full w-full" style={{ color: 'var(--color-brand-navy)' }} />
+      ),
+      href: '#contacts',
+    },
+  ];
+
+  // Add click handler to dock links
+  const enhancedDockLinks = dockLinks.map(link => ({
+    ...link,
+    onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      const sectionId = link.href.replace('#', '');
+      scrollToSection(sectionId);
+    }
+  }));
+
   return (
     <motion.nav
-      className="sticky top-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       animate={{
         backgroundColor: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,1)',
         boxShadow: scrolled
@@ -80,28 +160,17 @@ export default function Navbar({ onAppointmentClick }: NavbarProps) {
           />
         </button>
 
-        {/* Desktop Nav */}
-        <ul className="hidden lg:flex items-center gap-6 xl:gap-8 list-none">
-          {navLinks.map((link) => (
-            <li key={link.id} className="relative group">
-              <a
-                href={`#${link.id}`}
-                onClick={(e) => handleNavClick(e, link.id)}
-                className="text-[14px] font-semibold leading-none tracking-[-0.01em] no-underline transition-colors block py-2"
-                style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-brand-orange)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-brand-navy)')}
-              >
-                {link.label}
-              </a>
-              {/* Hover underline */}
-              <span
-                className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-300 rounded-full"
-                style={{ backgroundColor: 'var(--color-brand-orange)' }}
-              />
-            </li>
-          ))}
-        </ul>
+        {/* Desktop Floating Dock Navigation */}
+        <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
+          <FloatingDock
+            items={enhancedDockLinks}
+            desktopClassName="border shadow-lg"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.95)',
+              borderColor: 'rgba(26,36,114,0.1)',
+            }}
+          />
+        </div>
 
         {/* Desktop CTA */}
         <motion.button
@@ -133,18 +202,19 @@ export default function Navbar({ onAppointmentClick }: NavbarProps) {
             style={{ borderColor: 'rgba(26,36,114,0.08)', backgroundColor: 'rgba(255,255,255,0.98)' }}
           >
             <div className="flex flex-col px-6 py-4 gap-1">
-              {navLinks.map((link, i) => (
+              {dockLinks.map((link, i) => (
                 <motion.a
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={(e) => handleNavClick(e, link.id)}
+                  key={link.title}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href.replace('#', ''))}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="text-[16px] font-semibold leading-none no-underline block py-3 px-4 rounded-lg hover:bg-[#F0F4FF] transition-colors"
+                  className="text-[16px] font-semibold leading-none no-underline block py-3 px-4 rounded-lg hover:bg-[#F0F4FF] transition-colors flex items-center gap-3"
                   style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}
                 >
-                  {link.label}
+                  <div className="w-5 h-5">{link.icon}</div>
+                  {link.title}
                 </motion.a>
               ))}
               <motion.button

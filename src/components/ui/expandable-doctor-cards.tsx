@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import type { Doctor } from "@/services/api";
+import type { Doctor } from "@/data/doctors";
 
 interface ExpandableDoctorCardsProps {
   doctors: Doctor[];
