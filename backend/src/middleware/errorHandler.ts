@@ -3,6 +3,15 @@ import { sendError } from '../utils/response.js';
 import logger from '../utils/logger.js';
 import { env } from '../config/env.js';
 
+/**
+ * Async handler wrapper to catch errors in async route handlers
+ */
+export const asyncHandler = (fn: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+};
+
 export const errorHandler = (
   error: any,
   req: Request,
@@ -15,6 +24,17 @@ export const errorHandler = (
     path: req.path,
     method: req.method,
   });
+
+  // Handle Zod validation errors
+  if (error.name === 'ZodError') {
+    return sendError(
+      res,
+      'VALIDATION_ERROR',
+      'Invalid request data',
+      400,
+      { errors: error.errors }
+    );
+  }
 
   // Handle Prisma errors
   if (error.code?.startsWith('P')) {

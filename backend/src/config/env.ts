@@ -11,6 +11,7 @@ const envSchema = z.object({
   // Optional for future use
   DATABASE_URL: z.string().url().optional(),
   JWT_SECRET: z.string().min(10).optional(),
+  DEEPLINK_SECRET: z.string().min(32).default('change-this-secret-in-production-min-32-chars-required'),
 });
 
 export type Env = z.infer<typeof envSchema>;

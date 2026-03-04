@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Booking Integration - Quick Start Template</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f5f5f5;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      color: #0D1240;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    
+    .doctor-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+    
+    .doctor-card:hover {
+      border-color: #F7941D;
+      box-shadow: 0 4px 12px rgba(247, 148, 29, 0.15);
+    }
+    
+    .doctor-info h3 {
+      color: #0D1240;
+      margin: 0 0 8px 0;
+      font-size: 20px;
+    }
+    
+    .doctor-info .specialty {
+      color: #F7941D;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .doctor-info .qualification {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .book-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #F7941D;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    
+    .book-btn:hover {
+      background: #e67e0a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(247, 148, 29, 0.4);
+    }
+    
+    .book-btn:active {
+      transform: translateY(0);
+    }
+    
+    .config-section {
+      background: #f8f9fa;
+      border-left: 4px solid #F7941D;
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 4px;
+    }
+    
+    .config-section h2 {
+      margin-top: 0;
+      color: #0D1240;
+      font-size: 18px;
+    }
+    
+    .config-section code {
+      background: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #e67e0a;
+      font-family: 'Courier New', monospace;
+    }
+    
+    @media (max-width: 768px) {
+      .doctor-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .book-btn {
+        margin-top: 16px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏥 Book an Appointment with Our Specialists</h1>
+    <p class="subtitle">Click below to schedule an appointment with any of our expert doctors</p>
+    
+    <!-- Configuration Instructions -->
+    <div class="config-section">
+      <h2>⚙️ Configuration Required</h2>
+      <p><strong>Before using this template:</strong></p>
+      <ol>
+        <li>Replace <code>BOOKING_PLATFORM_URL</code> with your actual booking platform URL</li>
+        <li>Replace <code>YOUR_HOSPITAL_ID</code> with your hospital's unique ID</li>
+        <li>Update doctor IDs to match your hospital's doctor roster</li>
+        <li>Customize campaign names for tracking (e.g., <code>homepage_cta</code>, <code>cardiology_section</code>)</li>
+      </ol>
+      <p><em>Contact your partner manager if you don't have these values.</em></p>
+    </div>
+    
+    <!-- Doctor Cards -->
+    
+    <!-- Example Doctor 1: Cardiologist -->
+    <div class="doctor-card">
+      <div class="doctor-info">
+        <h3>Dr. Rajkumar</h3>
+        <div class="specialty">Pulmonologist & Chest Physician</div>
+        <div class="qualification">MBBS, MD (Pulmonology) • 15+ Years Experience</div>
+      </div>
+      <button 
+        class="book-btn" 
+        onclick="bookAppointment('dr-rajkumar', 'pulmonology_section')"
+      >
+        Book Appointment
+      </button>
+    </div>
+    
+    <!-- Example Doctor 2: Ophthalmologist -->
+    <div class="doctor-card">
+      <div class="doctor-info">
+        <h3>Dr. Neelima Dixit</h3>
+        <div class="specialty">Ophthalmologist & Eye Surgeon</div>
+        <div class="qualification">MBBS, MS (Ophthalmology) • 12+ Years Experience</div>
+      </div>
+      <button 
+        class="book-btn" 
+        onclick="bookAppointment('dr-neelima-dixit', 'ophthalmology_section')"
+      >
+        Book Appointment
+      </button>
+    </div>
+    
+    <!-- Example Doctor 3: Neurosurgeon -->
+    <div class="doctor-card">
+      <div class="doctor-info">
+        <h3>Dr. Divakar Chaudhari</h3>
+        <div class="specialty">Neurosurgeon</div>
+        <div class="qualification">MBBS, MS, MCh (Neurosurgery) • 18+ Years Experience</div>
+      </div>
+      <button 
+        class="book-btn" 
+        onclick="bookAppointment('dr-divakar-chaudhari', 'neurosurgery_section')"
+      >
+        Book Appointment
+      </button>
+    </div>
+    
+    <!-- Add more doctor cards as needed -->
+    
+    <p style="margin-top: 40px; color: #666; font-size: 14px; text-align: center;">
+      💡 <strong>Tip:</strong> Copy this HTML file and customize it with your hospital's branding and doctor information.
+    </p>
+  </div>
+  
+  <!-- Booking Script -->
+  <script>
+    // ========================================
+    // CONFIGURATION - UPDATE THESE VALUES
+    // ========================================
+    
+    const CONFIG = {
+      // Your booking platform URL (e.g., 'https://booking.yourhospital.com')
+      BOOKING_PLATFORM_URL: 'http://localhost:5173',  // CHANGE THIS
+      
+      // Your hospital's unique identifier
+      HOSPITAL_ID: 'hospital-rph-123',  // CHANGE THIS
+      
+      // Enable analytics tracking (set to false to disable)
+      ENABLE_ANALYTICS: true,
+    };
+    
+    // ========================================
+    // BOOKING FUNCTION - NO CHANGES NEEDED
+    // ========================================
+    
+    /**
+     * Handle appointment booking click
+     * @param {string} doctorId - The doctor's unique ID
+     * @param {string} campaign - Campaign/page identifier for tracking
+     */
+    function bookAppointment(doctorId, campaign) {
+      // Validate configuration
+      if (CONFIG.BOOKING_PLATFORM_URL.includes('localhost') || 
+          CONFIG.BOOKING_PLATFORM_URL.includes('CHANGE')) {
+        alert('⚠️ Configuration Required!\n\nPlease update the BOOKING_PLATFORM_URL in the script section with your actual booking platform URL.');
+        return;
+      }
+      
+      // Track analytics event (if enabled)
+      if (CONFIG.ENABLE_ANALYTICS) {
+        trackBookingClick(doctorId, campaign);
+      }
+      
+      // Build deeplink URL
+      const params = new URLSearchParams({
+        doctorId: doctorId,
+        source: `hospital_${CONFIG.HOSPITAL_ID}`,
+        campaign: campaign,
+        // Optional: Add UTM parameters for your own tracking
+        utm_source: 'hospital_website',
+        utm_medium: 'booking_button',
+        utm_campaign: campaign,
+      });
+      
+      const bookingUrl = `${CONFIG.BOOKING_PLATFORM_URL}?${params.toString()}`;
+      
+      // Show loading state (optional)
+      const button = event.target;
+      const originalText = button.textContent;
+      button.textContent = 'Opening...';
+      button.disabled = true;
+      
+      // Small delay for better UX
+      setTimeout(() => {
+        window.location.href = bookingUrl;
+      }, 300);
+    }
+    
+    /**
+     * Track booking click event
+     * Send to your analytics platform (Google Analytics, Mixpanel, etc.)
+     */
+    function trackBookingClick(doctorId, campaign) {
+      // Google Analytics 4 (gtag.js)
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'booking_deeplink_click', {
+          'event_category': 'Booking',
+          'event_label': doctorId,
+          'campaign_name': campaign,
+          'hospital_id': CONFIG.HOSPITAL_ID,
+        });
+      }
+      
+      // Google Analytics Universal (analytics.js)
+      if (typeof ga !== 'undefined') {
+        ga('send', 'event', 'Booking', 'deeplink_click', doctorId);
+      }
+      
+      // Facebook Pixel
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {
+          content_name: 'Doctor Booking',
+          content_category: campaign,
+        });
+      }
+      
+      // Console log for development
+      console.log('[Booking Analytics]', {
+        event: 'booking_deeplink_click',
+        doctorId,
+        campaign,
+        timestamp: new Date().toISOString(),
+      });
+    }
+    
+    /**
+     * Optional: Pre-generate signed deeplinks on page load
+     * Requires server-side integration with partner API
+     */
+    async function generateSignedLink(doctorId, campaign) {
+      try {
+        const response = await fetch('/api/generate-booking-link', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            doctorId,
+            campaign,
+            hospitalId: CONFIG.HOSPITAL_ID,
+          }),
+        });
+        
+        const data = await response.json();
+        return data.signedUrl;
+      } catch (error) {
+        console.error('Failed to generate signed deeplink:', error);
+        // Fallback to simple deeplink
+        return null;
+      }
+    }
+  </script>
+  
+  <!-- Optional: Add your own analytics scripts here -->
+  <!-- Example: Google Analytics -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'YOUR_GA_ID');
+  </script>
+  -->
+</body>
+</html>

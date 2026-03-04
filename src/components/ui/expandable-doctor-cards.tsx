@@ -7,9 +7,10 @@ import type { Doctor } from "@/data/doctors";
 
 interface ExpandableDoctorCardsProps {
   doctors: Doctor[];
+  onBookAppointment?: (doctor: Doctor) => void;
 }
 
-export default function ExpandableDoctorCards({ doctors }: ExpandableDoctorCardsProps) {
+export default function ExpandableDoctorCards({ doctors, onBookAppointment }: ExpandableDoctorCardsProps) {
   const [active, setActive] = useState<Doctor | null>(null);
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -237,6 +238,12 @@ export default function ExpandableDoctorCards({ doctors }: ExpandableDoctorCards
 
                     {/* Book Appointment Button */}
                     <button
+                      onClick={() => {
+                        if (onBookAppointment) {
+                          onBookAppointment(active);
+                          setActive(null);
+                        }
+                      }}
                       className="w-full rounded-lg py-3 text-sm font-bold transition-all hover:shadow-lg mt-4"
                       style={{
                         fontFamily: 'var(--font-manrope)',

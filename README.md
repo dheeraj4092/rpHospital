@@ -48,6 +48,32 @@ npm run dev                        # Terminal 2: Frontend at :5173
 - ✅ Real-time hospital contact information
 - ✅ Rate limiting and security features
 - ✅ Responsive design
+- ✅ **Deeplink booking integration** 🆕
+  - Partner hospital websites can link directly to booking flow
+  - Pre-filled doctor/department selection
+  - Secure signed deeplinks with expiration
+  - Analytics tracking for campaign attribution
+  - See [DEEPLINK_QUICKSTART.md](./DEEPLINK_QUICKSTART.md) to test
+
+## 🔗 Deeplink Booking (New Feature)
+
+Allow partner hospital websites to redirect users directly to the booking platform with pre-selected doctors.
+
+**Quick Test:**
+```
+http://localhost:5173/?doctorId=dr-rajkumar&source=hospital_test&campaign=test
+```
+
+**Documentation:**
+- 🚀 [Quick Start Guide](./DEEPLINK_QUICKSTART.md) - Test in 3 minutes
+- 📘 [Partner Integration Guide](./DEEPLINK_INTEGRATION_GUIDE.md) - Complete documentation
+- 📊 [Feature Summary](./DEEPLINK_FEATURE_SUMMARY.md) - Implementation details
+
+**API Endpoints:**
+- `POST /api/partners/deeplink` - Generate signed deeplinks
+- `POST /api/partners/deeplink/batch` - Batch generate (up to 100)
+- `GET /api/booking/deeplink/validate` - Validate signed deeplinks
+- `GET /api/partners/deeplink/test` - Test endpoint (dev only)
 - ✅ Error handling and loading states
 
 ## 📚 Documentation

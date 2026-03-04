@@ -5,17 +5,37 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface AppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  prefillData?: {
+    doctorId?: string;
+    doctorName?: string;
+    department?: string;
+    source?: string;
+    campaign?: string;
+  };
 }
 
-export default function AppointmentModal({ isOpen, onClose }: AppointmentModalProps) {
+export default function AppointmentModal({ isOpen, onClose, prefillData }: AppointmentModalProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    department: '',
+    department: prefillData?.department || '',
     message: '',
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // Update form when prefillData changes
+  useEffect(() => {
+    if (prefillData?.department) {
+      setFormData(prev => ({ ...prev, department: prefillData.department || '' }));
+    }
+    if (prefillData?.doctorName) {
+      setFormData(prev => ({ 
+        ...prev, 
+        message: `Request appointment with ${prefillData.doctorName}` 
+      }));
+    }
+  }, [prefillData]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -91,11 +111,16 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                   className="text-[20px] font-extrabold tracking-[-0.02em]"
                   style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}
                 >
-                  Book Appointment
+                  {prefillData?.doctorName ? `Book with ${prefillData.doctorName}` : 'Book Appointment'}
                 </h2>
                 <p className="text-[12px] font-medium mt-0.5" style={{ color: 'var(--color-text-muted)' }}>
                   Fill in your details and we'll confirm shortly
                 </p>
+                {prefillData?.source && (
+                  <span className="inline-block mt-1 px-2 py-0.5 text-[10px] font-medium rounded-full" style={{ backgroundColor: '#FFF8E1', color: '#B8860B' }}>
+                    Via Partner Hospital
+                  </span>
+                )}
               </div>
               <motion.button
                 onClick={onClose}

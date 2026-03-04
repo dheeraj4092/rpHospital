@@ -56,6 +56,16 @@ export interface CreateAppointmentData {
   doctorId?: string;
   departmentId?: string;
   notes?: string;
+  source?: string;
+  campaign?: string;
+}
+
+export interface DeeplinkPayload {
+  doctorId: string;
+  clinicId?: string;
+  hospitalId: string;
+  campaign?: string;
+  source: string;
 }
 
 class ApiService {
@@ -122,6 +132,25 @@ class ApiService {
   // Health check
   async healthCheck() {
     return this.request('/health');
+  }
+
+  // Deeplink validation
+  async validateDeeplink(signed: string) {
+    return this.request<DeeplinkPayload>(`/booking/deeplink/validate?signed=${encodeURIComponent(signed)}`);
+  }
+
+  // Generate deeplink (for partner portals)
+  async generateDeeplink(params: {
+    hospitalId: string;
+    doctorId: string;
+    clinicId?: string;
+    expiresInSec?: number;
+    campaign?: string;
+  }) {
+    return this.request<{ signedUrl: string; expiresAt: string }>('/partners/deeplink', {
+      method: 'POST',
+      body: JSON.stringify(params),
+    });
   }
 }
 
