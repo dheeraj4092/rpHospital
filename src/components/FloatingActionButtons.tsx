@@ -11,13 +11,13 @@ export default function FloatingActionButtons() {
   }, []);
 
   const handleWhatsApp = () => {
-    const phoneNumber = '919876543210';
+    const phoneNumber = '919090900580';
     const message = encodeURIComponent('Hello, I would like to inquire about your services.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
   const handleEmergency = () => {
-    window.location.href = 'tel:+919876543211';
+    window.location.href = 'tel:+919090900580';
   };
 
   const scrollToTop = () => {

@@ -41,7 +41,6 @@
   }
 
   html {
-    scroll-behavior: smooth;
     /* Prevent horizontal scroll on mobile */
     overflow-x: hidden;
   }

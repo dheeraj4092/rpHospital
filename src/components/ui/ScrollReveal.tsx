@@ -11,6 +11,8 @@ interface ScrollRevealProps {
   duration?: number;
   className?: string;
   distance?: number;
+  /** Skip scroll-trigger — animate in on mount. Use for above-the-fold content. */
+  animateImmediately?: boolean;
 }
 
 const getInitial = (direction: Direction, distance: number) => {
@@ -40,7 +42,21 @@ export default function ScrollReveal({
   duration = 0.6,
   className = '',
   distance = 30,
+  animateImmediately = false,
 }: ScrollRevealProps) {
+  if (animateImmediately) {
+    return (
+      <motion.div
+        className={className}
+        initial={getInitial(direction, distance)}
+        animate={getAnimate(direction)}
+        transition={{ duration, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       className={className}
@@ -60,24 +76,45 @@ export function StaggerContainer({
   className = '',
   staggerDelay = 0.08,
   delayChildren = 0.1,
+  viewport: viewportOverride,
+  animateImmediately = false,
 }: {
   children: ReactNode;
   className?: string;
   staggerDelay?: number;
   delayChildren?: number;
+  /** Override default viewport options */
+  viewport?: { once?: boolean; amount?: number; margin?: string };
+  /** Skip whileInView — animate on mount immediately */
+  animateImmediately?: boolean;
 }) {
+  const variants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: staggerDelay, delayChildren },
+    },
+  };
+
+  if (animateImmediately) {
+    return (
+      <motion.div
+        className={className}
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+      >
+        {children}
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: { staggerChildren: staggerDelay, delayChildren },
-        },
-      }}
+      viewport={viewportOverride ?? { once: true, margin: '-60px' }}
+      variants={variants}
     >
       {children}
     </motion.div>

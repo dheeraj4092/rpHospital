@@ -17,9 +17,10 @@ import AnimatedCounter from './ui/AnimatedCounter';
 
 interface HeroBannerProps {
   onAppointmentClick: () => void;
+  onServicesClick?: () => void;
 }
 
-const specialties = ['Cardiology', 'Neurology', 'Orthopedics', 'Oncology', 'Pediatrics'];
+const specialties = ['Pulmonology', 'Neurology', 'Opthamology', 'Urology', 'Nephrology', 'General Surgery'];
 
 const containerVariants: Variants = {
   hidden: {},
@@ -76,7 +77,7 @@ const GlassCard = ({
   </motion.div>
 );
 
-export default function HeroBanner({ onAppointmentClick }: HeroBannerProps) {
+export default function HeroBanner({ onAppointmentClick, onServicesClick }: HeroBannerProps) {
   const [specialtyIdx, setSpecialtyIdx] = useState(0);
 
   useEffect(() => {
@@ -268,8 +269,8 @@ export default function HeroBanner({ onAppointmentClick }: HeroBannerProps) {
             </motion.button>
 
             <motion.a
-              href="#services"
-              onClick={e => { e.preventDefault(); scrollToSection('services'); }}
+              href="/services"
+              onClick={e => { e.preventDefault(); onServicesClick ? onServicesClick() : scrollToSection('services'); }}
               whileHover={{ x: 3 }}
               className="flex items-center justify-center sm:justify-start gap-2 text-[14px] sm:text-[15px] font-semibold py-3 sm:py-0 no-underline"
               style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}

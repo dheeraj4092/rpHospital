@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { hospitalInfo } from '../data/hospital';
 import ScrollReveal, { StaggerContainer, staggerItemVariants } from './ui/ScrollReveal';
 
 export default function AboutHospitalSection() {
@@ -15,29 +14,6 @@ export default function AboutHospitalSection() {
   return (
     <section id="about" style={{ backgroundColor: 'var(--color-bg-light)' }}>
       <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24 max-w-[1440px] mx-auto">
-        {/* Header */}
-        <ScrollReveal className="text-center mb-10 md:mb-14">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="w-6 sm:w-8 h-[2px] rounded-full inline-block" style={{ backgroundColor: 'var(--color-brand-orange)' }} />
-            <span className="text-[11px] sm:text-[13px] font-bold tracking-[0.1em] uppercase" style={{ fontFamily: 'var(--font-inter)', color: 'var(--color-brand-orange)' }}>
-              About Us
-            </span>
-            <span className="w-6 sm:w-8 h-[2px] rounded-full inline-block" style={{ backgroundColor: 'var(--color-brand-orange)' }} />
-          </div>
-          <h2
-            className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] font-extrabold leading-[1.2] tracking-[-0.02em] mb-4 px-4"
-            style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}
-          >
-            {hospitalInfo.name}
-          </h2>
-          <p
-            className="text-[16px] sm:text-[18px] font-semibold mb-6"
-            style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-orange)' }}
-          >
-            Excellence in Healthcare Since {hospitalInfo.established}
-          </p>
-        </ScrollReveal>
-
         {/* About Card */}
         <ScrollReveal delay={0.1} className="max-w-[900px] mx-auto mb-12 md:mb-16">
           <div

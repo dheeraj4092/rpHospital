@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import AnimatedCounter from './ui/AnimatedCounter';
-import ScrollReveal, { StaggerContainer, staggerItemVariants } from './ui/ScrollReveal';
+import { StaggerContainer, staggerItemVariants } from './ui/ScrollReveal';
 
 const stats = [
   { value: 2025, suffix: '', label: 'Established' },
@@ -117,24 +117,6 @@ export default function ServicesSection() {
 
       {/* Services Grid */}
       <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24 max-w-[1440px] mx-auto">
-        {/* Header */}
-        <ScrollReveal className="text-center mb-10 md:mb-12">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="w-6 sm:w-8 h-[2px] rounded-full inline-block" style={{ backgroundColor: 'var(--color-brand-orange)' }} />
-            <span className="text-[11px] sm:text-[13px] font-bold tracking-[0.1em] uppercase" style={{ fontFamily: 'var(--font-inter)', color: 'var(--color-brand-orange)' }}>
-              Our Specializations
-            </span>
-            <span className="w-6 sm:w-8 h-[2px] rounded-full inline-block" style={{ backgroundColor: 'var(--color-brand-orange)' }} />
-          </div>
-          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] font-extrabold leading-[1.2] tracking-[-0.02em] mb-4 px-4" style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}>
-            Comprehensive Medical Care
-          </h2>
-          <p className="text-[14px] sm:text-[15px] font-medium leading-[1.7] max-w-[560px] mx-auto px-4" style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-text-muted)' }}>
-            From preventive care to complex surgeries, our specialists are equipped
-            to handle every medical need with precision and compassion.
-          </p>
-        </ScrollReveal>
-
         {/* Cards Grid */}
         <StaggerContainer
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5"
