@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Variants, TargetAndTransition, Transition } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import {
   IconShieldCheck,
   IconBuildingHospital,
@@ -11,7 +11,6 @@ import {
   IconAward,
   IconStethoscope,
 } from '@tabler/icons-react';
-import heroCollage from '../assets/hero-collage.svg';
 import { scrollToSection } from '../utils/scroll';
 import AnimatedCounter from './ui/AnimatedCounter';
 
@@ -45,45 +44,36 @@ const stats = [
   { value: 98, suffix: '%', label: 'Success Rate', icon: IconHeartbeat },
 ];
 
-/* ─── Floating glassmorphism cards ─── */
-const GlassCard = ({
-  children,
-  className,
-  initial,
-  animate,
-  transition,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  initial?: TargetAndTransition;
-  animate?: TargetAndTransition;
-  transition?: Transition;
-}) => (
-  <motion.div
-    className={`absolute hidden sm:flex items-center gap-3 rounded-2xl px-4 py-3 ${className ?? ''}`}
-    style={{
-      background: 'rgba(255,255,255,0.88)',
-      backdropFilter: 'blur(14px)',
-      WebkitBackdropFilter: 'blur(14px)',
-      border: '1px solid rgba(255,255,255,0.65)',
-      boxShadow: '0 8px 32px rgba(26,36,114,0.13), 0 2px 8px rgba(26,36,114,0.06)',
-    }}
-    initial={initial}
-    animate={animate}
-    transition={transition}
-    whileHover={{ y: -4, boxShadow: '0 14px 40px rgba(26,36,114,0.18)' }}
-  >
-    {children}
-  </motion.div>
-);
+const doctorProfiles = [
+  {
+    id: 'doc-rajendra',
+    name: 'Dr. Rajendra Prasad Boddula',
+    title: 'Pulmonology & Respiratory Medicine',
+    photo: '/DSC02949.png',
+  },
+  {
+    id: 'doc-vanitha',
+    name: 'Dr. Vanitha A',
+    title: 'Ophthalmology',
+    photo: '/DSC02826.png',
+  }
+];
 
 export default function HeroBanner({ onAppointmentClick, onServicesClick }: HeroBannerProps) {
   const [specialtyIdx, setSpecialtyIdx] = useState(0);
+  const [doctorIdx, setDoctorIdx] = useState(0);
 
   useEffect(() => {
     const id = setInterval(() => setSpecialtyIdx(i => (i + 1) % specialties.length), 2600);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => setDoctorIdx(i => (i + 1) % doctorProfiles.length), 3400);
+    return () => clearInterval(timer);
+  }, []);
+
+  const activeDoctor = doctorProfiles[doctorIdx];
 
   return (
     <section
@@ -287,13 +277,11 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
         </motion.div>
 
         {/* ─────────── RIGHT COLUMN ─────────── */}
-        <div className="w-full lg:flex-1 relative flex items-end justify-center">
-
-          {/* Decorative ring 1 — slow spin */}
+        <div className="w-full lg:flex-1 relative flex items-center justify-center">
           <motion.div
-            className="absolute w-[88%] aspect-square rounded-full pointer-events-none"
+            className="absolute w-[78%] aspect-square rounded-full pointer-events-none"
             style={{
-              border: '2px dashed rgba(247,148,29,0.2)',
+              border: '2px dashed rgba(247,148,29,0.18)',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
@@ -302,176 +290,105 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
             transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
           />
 
-          {/* Decorative ring 2 — pulse */}
           <motion.div
-            className="absolute w-[72%] aspect-square rounded-full pointer-events-none"
+            className="absolute w-[64%] aspect-square rounded-full pointer-events-none"
             style={{
               border: '1.5px solid rgba(26,36,114,0.12)',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
             }}
-            animate={{ scale: [1, 1.04, 1], opacity: [0.8, 1, 0.8] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            animate={{ scale: [1, 1.05, 1], opacity: [0.85, 1, 0.85] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* Glow behind image */}
           <div
-            className="absolute w-[60%] h-[55%] rounded-full pointer-events-none"
+            className="absolute w-[54%] h-[50%] rounded-full pointer-events-none"
             style={{
-              background: 'radial-gradient(ellipse, rgba(247,148,29,0.15) 0%, transparent 70%)',
-              bottom: '10%',
+              background: 'radial-gradient(ellipse, rgba(247,148,29,0.16) 0%, transparent 70%)',
+              bottom: '8%',
               left: '50%',
               transform: 'translateX(-50%)',
-              filter: 'blur(24px)',
+              filter: 'blur(22px)',
             }}
           />
 
-          {/* Hero collage image */}
           <motion.div
-            className="relative w-full max-w-[540px] lg:max-w-none"
+            className="relative w-full max-w-[460px] lg:max-w-[520px]"
             initial={{ opacity: 0, x: 40, scale: 0.97 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <img
-              src={heroCollage}
-              alt="Medical professionals at R.P Super Speciality Hospital"
-              className="w-full h-auto object-contain relative z-10"
-            />
-
-            {/* ── Floating card: Doctors Online ── */}
-            <GlassCard
-              className="top-6 left-0 lg:-left-8 z-20"
-              initial={{ opacity: 0, x: -24, y: -12 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 1.0, duration: 0.6 }}
+            <div
+              className="relative overflow-hidden rounded-[28px] border"
+              style={{
+                borderColor: 'rgba(26,36,114,0.1)',
+                boxShadow: '0 18px 60px rgba(26,36,114,0.16)',
+                background:
+                  'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(247,148,29,0.06))',
+                maxHeight: '420px',
+              }}
             >
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'rgba(26,36,114,0.08)' }}
-              >
-                <IconStethoscope size={18} style={{ color: 'var(--color-brand-navy)' }} stroke={1.8} />
-              </div>
-              <div>
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <motion.div
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: '#22c55e' }}
-                    animate={{ opacity: [1, 0.4, 1] }}
-                    transition={{ duration: 1.4, repeat: Infinity }}
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage:
+                  'radial-gradient(circle at 10% 20%, rgba(247,148,29,0.15) 0, transparent 32%), radial-gradient(circle at 80% 10%, rgba(26,36,114,0.12) 0, transparent 28%)',
+              }} />
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeDoctor.id}
+                  initial={{ opacity: 0, scale: 0.97, y: 18 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.97, y: -18 }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="relative"
+                >
+                  <img
+                    src={activeDoctor.photo}
+                    alt={activeDoctor.name}
+                    className="w-full h-full object-cover"
+                    style={{ maxHeight: '420px' }}
                   />
-                  <span
-                    className="text-[11px] font-bold uppercase tracking-wider"
-                    style={{ fontFamily: 'var(--font-inter)', color: '#22c55e' }}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 p-5 flex items-center justify-between gap-4"
+                    style={{
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.48) 80%)',
+                    }}
                   >
-                    Online Now
-                  </span>
-                </div>
-                <div
-                  className="text-[13px] font-bold leading-none"
-                  style={{ color: 'var(--color-brand-navy)' }}
-                >
-                  Doctors Available
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* ── Floating card: Happy Patients ── */}
-            <GlassCard
-              className="bottom-28 -left-4 sm:left-0 lg:-left-10 z-20"
-              initial={{ opacity: 0, x: -20, y: 16 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-            >
-              <motion.div
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'rgba(247,148,29,0.12)' }}
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 3.5, repeat: Infinity }}
-              >
-                <IconUsers size={18} style={{ color: 'var(--color-brand-orange)' }} stroke={1.8} />
-              </motion.div>
-              <div>
-                <div
-                  className="text-[17px] font-extrabold leading-none"
-                  style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}
-                >
-                  15,000+
-                </div>
-                <div
-                  className="text-[11px] font-medium mt-0.5"
-                  style={{ color: 'var(--color-text-muted)' }}
-                >
-                  Happy Patients
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* ── Floating card: Years of Excellence ── */}
-            <GlassCard
-              className="bottom-12 -right-4 sm:right-0 lg:-right-6 z-20"
-              initial={{ opacity: 0, x: 20, y: 16 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 1.35, duration: 0.6 }}
-            >
-              <motion.div
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'var(--color-brand-navy)' }}
-                animate={{ rotate: [0, 6, -6, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity }}
-              >
-                <IconAward size={18} color="#F7941D" stroke={1.8} />
-              </motion.div>
-              <div>
-                <div
-                  className="text-[17px] font-extrabold leading-none text-white"
-                  style={{
-                    fontFamily: 'var(--font-manrope)',
-                    color: 'var(--color-brand-navy)',
-                  }}
-                >
-                  25+ Years
-                </div>
-                <div
-                  className="text-[11px] font-medium mt-0.5"
-                  style={{ color: 'var(--color-text-muted)' }}
-                >
-                  of Excellence
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* ── Floating card: Emergency ── */}
-            <GlassCard
-              className="top-6 right-0 lg:-right-6 z-20"
-              initial={{ opacity: 0, x: 24, y: -12 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 1.15, duration: 0.6 }}
-            >
-              <motion.div
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'rgba(239,68,68,0.1)' }}
-                animate={{ scale: [1, 1.12, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <IconClock24 size={18} style={{ color: '#ef4444' }} stroke={1.8} />
-              </motion.div>
-              <div>
-                <div
-                  className="text-[13px] font-extrabold leading-none"
-                  style={{ color: '#ef4444', fontFamily: 'var(--font-manrope)' }}
-                >
-                  24 / 7
-                </div>
-                <div
-                  className="text-[11px] font-medium mt-0.5"
-                  style={{ color: 'var(--color-text-muted)' }}
-                >
-                  Emergency Ready
-                </div>
-              </div>
-            </GlassCard>
+                    <div className="flex flex-col text-left">
+                      <span
+                        className="text-white text-[17px] sm:text-[18px] font-extrabold"
+                        style={{ fontFamily: 'var(--font-manrope)' }}
+                      >
+                        {activeDoctor.name}
+                      </span>
+                      <span
+                        className="text-white/80 text-[12px] sm:text-[13px] font-medium"
+                        style={{ fontFamily: 'var(--font-inter)' }}
+                      >
+                        {activeDoctor.title}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {doctorProfiles.map((doc, i) => (
+                        <button
+                          key={doc.id}
+                          aria-label={`View ${doc.name}`}
+                          onClick={() => setDoctorIdx(i)}
+                          className="rounded-full transition-all"
+                          style={{
+                            width: i === doctorIdx ? '18px' : '10px',
+                            height: '10px',
+                            backgroundColor: i === doctorIdx ? 'var(--color-brand-orange)' : 'rgba(255,255,255,0.6)',
+                            border: '1px solid rgba(255,255,255,0.6)',
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
       </div>

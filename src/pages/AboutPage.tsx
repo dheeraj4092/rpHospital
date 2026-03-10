@@ -1,5 +1,4 @@
 import { IconInfoCircle } from '@tabler/icons-react';
-import AboutHospitalSection from '../components/AboutHospitalSection';
 import MissionVisionSection from '../components/MissionVisionSection';
 import KeyHighlightsSection from '../components/KeyHighlightsSection';
 import PageHero from '../components/PageHero';
@@ -17,7 +16,6 @@ export default function AboutPage() {
         accentColor="#3B82F6"
         breadcrumb={[{ label: 'About' }]}
       />
-      <AboutHospitalSection />
       <MissionVisionSection />
       <KeyHighlightsSection />
       <PageNavigation />

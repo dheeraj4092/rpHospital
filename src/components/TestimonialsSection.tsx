@@ -5,45 +5,41 @@ import ScrollReveal from './ui/ScrollReveal';
 const testimonials = [
   {
     id: 1,
-    name: 'Ramesh Reddy',
-    role: 'Cardiac Patient',
-    avatar: 'https://i.pravatar.cc/80?u=ramesh-reddy',
+    name: 'Lakshmi Narayana',
+    role: 'Pulmonology Patient (COPD)',
     rating: 5,
-    text: "The cardiology team at R.P Super Speciality Hospital gave me a new lease on life. The doctors were thorough, compassionate, and explained every step of my treatment. Truly world-class care right here in Nizamabad.",
+    text: "I came in with severe breathlessness and the pulmonology team acted within minutes. Nebulisation, oxygen support, and clear guidance helped me stabilise. It felt like family taking care of me, right here in Nizamabad.",
   },
   {
     id: 2,
-    name: 'Priya Sharma',
-    role: 'Maternity Patient',
-    avatar: 'https://i.pravatar.cc/80?u=priya-sharma-niz',
+    name: 'Anjali Singh',
+    role: 'Asthma Care',
     rating: 5,
-    text: "From my first prenatal visit to delivery, the gynecology team was exceptional. The facility is modern, spotlessly clean, and the staff made me feel safe and supported throughout my entire pregnancy journey.",
+    text: "The chest physician adjusted my inhaler plan and taught me how to avoid local triggers. Within a week my night-time wheezing reduced, and the follow-up calls from the nurses kept me confident.",
   },
   {
     id: 3,
-    name: 'Suresh Kumar',
-    role: 'Orthopedic Patient',
-    avatar: 'https://i.pravatar.cc/80?u=suresh-kumar-ortho',
+    name: 'Mohammed Arif',
+    role: 'Respiratory Infection',
     rating: 5,
-    text: "I had a knee replacement surgery here and the results exceeded my expectations. The surgical team was highly skilled, recovery guidance was detailed, and I was back on my feet much sooner than anticipated.",
+    text: "I was worried about a persistent cough. The doctors quickly did a chest X-ray and started the right antibiotics. No unnecessary tests, just clear answers and respectful care for my family and me.",
   },
   {
     id: 4,
-    name: 'Fatima Begum',
-    role: 'General Patient',
-    avatar: 'https://i.pravatar.cc/80?u=fatima-begum-rph',
+    name: 'Sunita Reddy',
+    role: 'Sleep Apnea Evaluation',
     rating: 5,
-    text: "What impressed me most was the quick diagnosis and the doctor's ability to communicate complex conditions in simple terms. The emergency team responded within minutes when I needed them most. Highly recommended.",
-  },
-  {
-    id: 5,
-    name: 'Venkat Rao',
-    role: 'Neurology Patient',
-    avatar: 'https://i.pravatar.cc/80?u=venkat-rao-neuro',
-    rating: 5,
-    text: "The neurology department here is truly remarkable. The doctors used the latest diagnostic technology and created a personalized treatment plan. The entire staff was attentive and caring throughout my recovery.",
+    text: "Their sleep study and CPAP counselling were so practical. The pulmonology team explained everything in Telugu and English, making it easy for my parents to understand and support me at home.",
   },
 ];
+
+const getInitials = (name: string) =>
+  name
+    .split(' ')
+    .filter(Boolean)
+    .map((part) => part[0]?.toUpperCase())
+    .join('')
+    .slice(0, 2);
 
 const starPath = "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
 
@@ -133,12 +129,18 @@ export default function TestimonialsSection() {
 
                 {/* Reviewer */}
                 <div className="flex items-center gap-3 mt-2">
-                  <img
-                    src={t.avatar}
-                    alt={t.name}
-                    className="w-[52px] h-[52px] rounded-full object-cover shrink-0 border-2 border-white shadow-sm"
-                    style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
-                  />
+                  <div
+                    className="w-[52px] h-[52px] rounded-full shrink-0 flex items-center justify-center font-extrabold text-[16px]"
+                    style={{
+                      backgroundColor: 'rgba(26,36,114,0.08)',
+                      color: 'var(--color-brand-navy)',
+                      border: '1px solid rgba(26,36,114,0.12)',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                    }}
+                    aria-hidden
+                  >
+                    {getInitials(t.name)}
+                  </div>
                   <div className="flex flex-col gap-1.5">
                     <span
                       className="text-[15px] font-extrabold leading-none tracking-[-0.01em]"
