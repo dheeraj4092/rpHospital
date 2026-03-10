@@ -13,14 +13,15 @@ const WHITE_ICON = { filter: 'brightness(0) invert(1)' };
 
 export default function ContactSection() {
   const contactItems = [
-    { icon: locationIcon, label: hospitalInfo.address, size: [18, 20] },
-    { icon: phoneIcon, label: hospitalInfo.phone, size: [20, 20] },
-    { icon: emailIcon, label: hospitalInfo.email, size: [22, 16] },
+    { icon: locationIcon, label: hospitalInfo.address, size: [18, 20], alt: 'Hospital address' },
+    { icon: phoneIcon, label: hospitalInfo.phone, size: [20, 20], alt: 'Hospital phone number' },
+    { icon: emailIcon, label: hospitalInfo.email, size: [22, 16], alt: 'Hospital email' },
     {
       icon: clockIcon,
       label: `${hospitalInfo.operatingHours.weekdays}\n${hospitalInfo.operatingHours.saturday}\n${hospitalInfo.operatingHours.sunday}`,
       size: [20, 20],
       multiline: true,
+      alt: 'Operating hours',
     },
   ];
 
@@ -83,7 +84,7 @@ export default function ContactSection() {
                   >
                     <img
                       src={item.icon}
-                      alt=""
+                      alt={item.alt || ''}
                       style={{ width: item.size[0] * 0.7, height: item.size[1] * 0.7, flexShrink: 0, ...WHITE_ICON }}
                     />
                   </div>

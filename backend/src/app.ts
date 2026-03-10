@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import compression from 'compression';
 import { env } from './config/env.js';
 import { requestLogger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -11,6 +12,7 @@ const app: Application = express();
 
 // Security middleware
 app.use(helmet());
+app.use(compression());
 
 // CORS configuration
 app.use(
@@ -23,6 +25,14 @@ app.use(
 // Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Lightweight caching for idempotent GET responses
+app.use((req, res, next) => {
+  if (req.method === 'GET') {
+    res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  }
+  next();
+});
 
 // Request logging
 app.use(requestLogger);

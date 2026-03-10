@@ -4,6 +4,8 @@ import DoctorsSection from '../components/DoctorsSection';
 import AppointmentModal from '../components/AppointmentModal';
 import PageHero from '../components/PageHero';
 import PageNavigation from '../components/PageNavigation';
+import Seo from '../components/ui/Seo';
+import { breadcrumbJsonLd, buildPageMeta, doctorsJsonLd } from '../lib/seo';
 
 export default function DoctorsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,6 +14,7 @@ export default function DoctorsPage() {
     doctorName?: string;
     department?: string;
   } | undefined>(undefined);
+  const meta = buildPageMeta('/doctors');
 
   const handleBookAppointment = (doctor: any) => {
     setPrefillData({
@@ -24,6 +27,18 @@ export default function DoctorsPage() {
 
   return (
     <>
+      <Seo
+        title={meta.title}
+        description={meta.description}
+        canonicalPath={meta.canonicalPath}
+        structuredData={[
+          breadcrumbJsonLd([
+            { label: 'Home', path: '/' },
+            { label: 'Doctors', path: '/doctors' },
+          ]),
+          ...doctorsJsonLd(),
+        ]}
+      />
       <PageHero
         title="Meet Our Specialists"
         subtitle="A dedicated team of expert doctors committed to delivering the highest standard of personalised care."

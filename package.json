@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
+    "react-helmet-async": "^3.0.0",
     "@tabler/icons-react": "^3.38.0",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react-router-dom": "^5.3.3",

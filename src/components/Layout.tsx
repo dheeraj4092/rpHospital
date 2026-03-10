@@ -24,13 +24,19 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[9999] focus:bg-white focus:text-[#0d1240] focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
       <ScrollRestoration />
       <MainNavbar onAppointmentClick={() => setIsModalOpen(true)} />
       {/* top padding to clear fixed navbar (~60px on mobile, ~64px on desktop) */}
-      <div className="pt-[60px] sm:pt-[64px]">
+      <main id="main-content" role="main" className="pt-[60px] sm:pt-[64px]">
         {children}
         <Footer />
-      </div>
+      </main>
       <FloatingActionButtons />
       <AppointmentModal
         isOpen={isModalOpen}
