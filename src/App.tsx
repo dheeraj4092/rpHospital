@@ -9,6 +9,8 @@ const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const DoctorsPage = lazy(() => import('./pages/DoctorsPage'));
 const GalleryPage = lazy(() => import('./pages/GalleryPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
 import { api } from './services/api';
 import { doctors } from './data/doctors';
 
@@ -113,6 +115,8 @@ function AppContent() {
             <Route path="/doctors" element={<DoctorsPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

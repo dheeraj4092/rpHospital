@@ -1,28 +1,44 @@
 import logoImage from '../assets/rphs_logo.png';
 
-/**
- * HospitalLogo — R.P Super Speciality Hospital brand mark.
- */
 interface HospitalLogoProps {
-  /** height of the logo in pixels. Width scales proportionally. */
   height?: number;
-  /** render on a dark background — inverts the navy to white */
+  /** When true, logo is rendered on a dark background */
   inverted?: boolean;
 }
 
 export default function HospitalLogo({ height = 56, inverted = false }: HospitalLogoProps) {
+  if (inverted) {
+    // On dark backgrounds: invert the image so the white bg becomes black,
+    // then screen-blend it — black pixels disappear against dark, logo marks become visible.
+    return (
+      <img
+        src={logoImage}
+        alt="R.P Super Speciality Hospital"
+        style={{
+          height: `${height}px`,
+          width: 'auto',
+          display: 'block',
+          objectFit: 'contain',
+          flexShrink: 0,
+          filter: 'invert(1)',
+          mixBlendMode: 'screen',
+        }}
+      />
+    );
+  }
+
   return (
-    <img 
-      src={logoImage} 
-      alt="R.P Super Speciality Hospital" 
-      style={{ 
+    <img
+      src={logoImage}
+      alt="R.P Super Speciality Hospital"
+      style={{
         height: `${height}px`,
         width: 'auto',
-        filter: inverted ? 'brightness(0) invert(1) brightness(2)' : 'none',
+        display: 'block',
         objectFit: 'contain',
-        display: 'block'
+        flexShrink: 0,
       }}
-      className="flex-shrink-0 select-none"
     />
   );
 }
+

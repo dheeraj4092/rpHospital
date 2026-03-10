@@ -13,6 +13,8 @@ interface PageHeroProps {
   breadcrumb?: { label: string; path?: string }[];
   /** Gradient accent color (hex) — defaults to brand orange */
   accentColor?: string;
+  /** Optional background image URL */
+  backgroundImage?: string;
 }
 
 export default function PageHero({
@@ -23,14 +25,35 @@ export default function PageHero({
   iconColor,
   breadcrumb,
   accentColor = '#F7941D',
+  backgroundImage,
 }: PageHeroProps) {
   return (
     <div
       className="relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, var(--color-bg-hero) 0%, #E8EEFF 50%, ${accentColor}12 100%)`,
-      }}
+      style={
+        backgroundImage
+          ? undefined
+          : {
+              background: `linear-gradient(135deg, var(--color-bg-hero) 0%, #E8EEFF 50%, ${accentColor}12 100%)`,
+            }
+      }
     >
+      {/* Background photo rendered as <img> for reliable cross-origin loading */}
+      {backgroundImage && (
+        <img
+          src={backgroundImage}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+        />
+      )}
+      {/* Dark overlay for background image readability */}
+      {backgroundImage && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'linear-gradient(135deg, rgba(10,20,70,0.72) 0%, rgba(10,20,70,0.55) 100%)' }}
+        />
+      )}
       {/* Dot-grid texture */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -71,17 +94,17 @@ export default function PageHero({
             transition={{ duration: 0.45 }}
           >
             <Link to="/" className="flex items-center gap-1 group">
-              <IconHome size={12} style={{ color: 'var(--color-text-muted)' }} />
+              <IconHome size={12} style={{ color: backgroundImage ? 'rgba(255,255,255,0.7)' : 'var(--color-text-muted)' }} />
               <span
                 className="text-[12px] font-medium group-hover:underline"
-                style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-inter)' }}
+                style={{ color: backgroundImage ? 'rgba(255,255,255,0.7)' : 'var(--color-text-muted)', fontFamily: 'var(--font-inter)' }}
               >
                 Home
               </span>
             </Link>
             {breadcrumb.map((crumb, i) => (
               <span key={i} className="flex items-center gap-1.5">
-                <IconChevronRight size={11} style={{ color: 'var(--color-text-muted)', opacity: 0.5 }} />
+                <IconChevronRight size={11} style={{ color: backgroundImage ? 'rgba(255,255,255,0.5)' : 'var(--color-text-muted)', opacity: 0.5 }} />
                 {crumb.path ? (
                   <Link to={crumb.path}>
                     <span
@@ -155,7 +178,7 @@ export default function PageHero({
           {/* Title */}
           <motion.h1
             className="text-[28px] sm:text-[36px] md:text-[42px] font-extrabold leading-[1.15] tracking-[-0.025em]"
-            style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-brand-navy)' }}
+            style={{ fontFamily: 'var(--font-manrope)', color: backgroundImage ? '#ffffff' : 'var(--color-brand-navy)' }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.1 }}
@@ -176,7 +199,7 @@ export default function PageHero({
           {subtitle && (
             <motion.p
               className="text-[13px] sm:text-[15px] font-medium leading-[1.75] max-w-[560px]"
-              style={{ fontFamily: 'var(--font-manrope)', color: 'var(--color-text-muted)' }}
+              style={{ fontFamily: 'var(--font-manrope)', color: backgroundImage ? 'rgba(255,255,255,0.8)' : 'var(--color-text-muted)' }}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.18 }}

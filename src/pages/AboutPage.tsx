@@ -27,9 +27,10 @@ export default function AboutPage() {
         subtitle="Delivering world-class healthcare with compassion and clinical excellence since 2000."
         tag="About Us"
         icon={IconInfoCircle}
-        iconColor="#3B82F6"
+        iconColor="#ffffff"
         accentColor="#3B82F6"
         breadcrumb={[{ label: 'About' }]}
+        backgroundImage="https://rphospital.s3.ap-south-1.amazonaws.com/infrastructure/DSC02855.webp"
       />
       <MissionVisionSection />
       <KeyHighlightsSection />

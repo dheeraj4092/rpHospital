@@ -19,7 +19,7 @@ interface HeroBannerProps {
   onServicesClick?: () => void;
 }
 
-const specialties = ['Pulmonology', 'Neurology', 'Opthamology', 'Urology', 'Nephrology', 'General Surgery'];
+const specialties = ['Pulmonology', 'Neurology', 'Ophthalmology', 'Urology', 'Nephrology', 'General Surgery'];
 
 const containerVariants: Variants = {
   hidden: {},
@@ -63,6 +63,14 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
   const [specialtyIdx, setSpecialtyIdx] = useState(0);
   const [doctorIdx, setDoctorIdx] = useState(0);
 
+  // Preload all doctor photos once on mount so carousel swaps never trigger a network request
+  useEffect(() => {
+    doctorProfiles.forEach(({ photo }) => {
+      const img = new Image();
+      img.src = photo;
+    });
+  }, []);
+
   useEffect(() => {
     const id = setInterval(() => setSpecialtyIdx(i => (i + 1) % specialties.length), 2600);
     return () => clearInterval(id);
@@ -73,7 +81,6 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
     return () => clearInterval(timer);
   }, []);
 
-  const activeDoctor = doctorProfiles[doctorIdx];
 
   return (
     <section
@@ -334,60 +341,71 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
                   'radial-gradient(circle at 10% 20%, rgba(247,148,29,0.15) 0, transparent 32%), radial-gradient(circle at 80% 10%, rgba(26,36,114,0.12) 0, transparent 28%)',
               }} />
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeDoctor.id}
-                  initial={{ opacity: 0, scale: 0.97, y: 18 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.97, y: -18 }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="relative"
-                >
-                  <img
-                    src={activeDoctor.photo}
-                    alt={activeDoctor.name}
-                    className="w-full h-full object-cover"
-                    style={{ maxHeight: '420px' }}
-                  />
-                  <div
-                    className="absolute bottom-0 left-0 right-0 p-5 flex items-center justify-between gap-4"
-                    style={{
-                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.48) 80%)',
-                    }}
+              {/* All doctor images are always in the DOM — only opacity is animated, preventing repeated fetches */}
+              <div className="relative" style={{ maxHeight: '420px', overflow: 'hidden' }}>
+                {doctorProfiles.map((doc, i) => (
+                  <motion.div
+                    key={doc.id}
+                    animate={{ opacity: i === doctorIdx ? 1 : 0 }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    style={{ position: i === 0 ? 'relative' : 'absolute', inset: 0 }}
                   >
-                    <div className="flex flex-col text-left">
-                      <span
-                        className="text-white text-[17px] sm:text-[18px] font-extrabold"
-                        style={{ fontFamily: 'var(--font-manrope)' }}
-                      >
-                        {activeDoctor.name}
-                      </span>
-                      <span
-                        className="text-white/80 text-[12px] sm:text-[13px] font-medium"
-                        style={{ fontFamily: 'var(--font-inter)' }}
-                      >
-                        {activeDoctor.title}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {doctorProfiles.map((doc, i) => (
-                        <button
-                          key={doc.id}
-                          aria-label={`View ${doc.name}`}
-                          onClick={() => setDoctorIdx(i)}
-                          className="rounded-full transition-all"
-                          style={{
-                            width: i === doctorIdx ? '18px' : '10px',
-                            height: '10px',
-                            backgroundColor: i === doctorIdx ? 'var(--color-brand-orange)' : 'rgba(255,255,255,0.6)',
-                            border: '1px solid rgba(255,255,255,0.6)',
-                          }}
-                        />
-                      ))}
-                    </div>
+                    <img
+                      src={doc.photo}
+                      alt={doc.name}
+                      className="w-full h-full object-cover"
+                      style={{ maxHeight: '420px', display: 'block' }}
+                    />
+                  </motion.div>
+                ))}
+
+                {/* Caption overlay — always on top */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 p-5 flex items-center justify-between gap-4"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.48) 80%)',
+                  }}
+                >
+                  <div className="flex flex-col text-left">
+                    <motion.span
+                      key={doctorProfiles[doctorIdx].name}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="text-white text-[17px] sm:text-[18px] font-extrabold"
+                      style={{ fontFamily: 'var(--font-manrope)' }}
+                    >
+                      {doctorProfiles[doctorIdx].name}
+                    </motion.span>
+                    <motion.span
+                      key={doctorProfiles[doctorIdx].title}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.05 }}
+                      className="text-white/80 text-[12px] sm:text-[13px] font-medium"
+                      style={{ fontFamily: 'var(--font-inter)' }}
+                    >
+                      {doctorProfiles[doctorIdx].title}
+                    </motion.span>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                  <div className="flex items-center gap-2">
+                    {doctorProfiles.map((doc, i) => (
+                      <button
+                        key={doc.id}
+                        aria-label={`View ${doc.name}`}
+                        onClick={() => setDoctorIdx(i)}
+                        className="rounded-full transition-all"
+                        style={{
+                          width: i === doctorIdx ? '18px' : '10px',
+                          height: '10px',
+                          backgroundColor: i === doctorIdx ? 'var(--color-brand-orange)' : 'rgba(255,255,255,0.6)',
+                          border: '1px solid rgba(255,255,255,0.6)',
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

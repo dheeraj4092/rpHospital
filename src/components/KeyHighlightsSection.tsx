@@ -1,8 +1,6 @@
 export default function KeyHighlightsSection() {
   const accreditations = [
-    { icon: '🏆', title: 'NABH Accredited', desc: 'National accreditation for quality healthcare' },
-    { icon: '✨', title: 'ISO Certified', desc: 'International standards compliance' },
-    { icon: '🎖️', title: 'Award Winning', desc: 'Excellence in medical services' },
+    { icon: '️', title: 'Award Winning', desc: 'Excellence in medical services' },
     { icon: '🔒', title: 'Patient Safety', desc: 'Highest safety protocols maintained' },
   ];
 
@@ -30,7 +28,7 @@ export default function KeyHighlightsSection() {
     <section id="highlights" className="bg-white">
       <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24 max-w-[1440px] mx-auto">
         {/* Accreditations & Awards */}
-        <div className="mb-16 md:mb-20">
+        {/* <div className="mb-16 md:mb-20">
           <div className="text-center mb-10">
             <h2
               className="text-[28px] sm:text-[32px] md:text-[36px] font-extrabold leading-[1.2] tracking-[-0.02em] mb-4"
@@ -68,7 +66,7 @@ export default function KeyHighlightsSection() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Advanced Equipment */}
         <div className="mb-16 md:mb-20">

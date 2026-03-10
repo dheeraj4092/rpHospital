@@ -106,7 +106,7 @@ function mapManifestImages(images: ManifestImageEntry[] | undefined, category: C
 export default function PhotoGallerySection() {
   const [doctorsImages, setDoctorsImages] = useState<GalleryItem[]>([]);
   const [infraImages, setInfraImages] = useState<GalleryItem[]>([]);
-  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
@@ -159,6 +159,27 @@ export default function PhotoGallerySection() {
     { title: 'Doctors Gallery', items: doctorsImages },
     { title: 'Infrastructure Gallery', items: infraImages },
   ]), [doctorsImages, infraImages]);
+
+  const allImages = useMemo(() => gallerySections.flatMap((s) => s.items), [gallerySections]);
+
+  const selectedImage = selectedIndex !== null ? allImages[selectedIndex] ?? null : null;
+
+  const navigate = (dir: -1 | 1) => {
+    if (selectedIndex === null || allImages.length === 0) return;
+    setSelectedIndex((selectedIndex + dir + allImages.length) % allImages.length);
+  };
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (selectedIndex === null) return;
+      if (e.key === 'ArrowLeft') navigate(-1);
+      else if (e.key === 'ArrowRight') navigate(1);
+      else if (e.key === 'Escape') setSelectedIndex(null);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIndex, allImages.length]);
 
   return (
     <>
@@ -220,7 +241,7 @@ export default function PhotoGallerySection() {
                             className="group relative rounded-[16px] overflow-hidden cursor-pointer aspect-[4/3]"
                             whileHover={{ y: -6 }}
                             transition={{ duration: 0.25 }}
-                            onClick={() => setSelectedImage(image)}
+                            onClick={() => setSelectedIndex(allImages.findIndex((img) => img.id === image.id))}
                           >
                             <img
                               src={image.url}
@@ -279,12 +300,13 @@ export default function PhotoGallerySection() {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[200] flex items-center justify-center p-4"
             style={{ backgroundColor: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(8px)' }}
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedIndex(null)}
           >
+            {/* Close */}
             <motion.button
               className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full transition-colors"
               style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedIndex(null)}
               whileHover={{ backgroundColor: 'rgba(255,255,255,0.22)', scale: 1.1 }}
               aria-label="Close"
             >
@@ -293,11 +315,40 @@ export default function PhotoGallerySection() {
               </svg>
             </motion.button>
 
+            {/* Prev button */}
+            <motion.button
+              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full"
+              style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
+              onClick={(e) => { e.stopPropagation(); navigate(-1); }}
+              whileHover={{ backgroundColor: 'rgba(255,255,255,0.25)', scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Previous image"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </motion.button>
+
+            {/* Next button */}
+            <motion.button
+              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full"
+              style={{ backgroundColor: 'rgba(255,255,255,0.12)' }}
+              onClick={(e) => { e.stopPropagation(); navigate(1); }}
+              whileHover={{ backgroundColor: 'rgba(255,255,255,0.25)', scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Next image"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </motion.button>
+
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              key={selectedIndex}
+              initial={{ scale: 0.94, opacity: 0, x: 0 }}
+              animate={{ scale: 1, opacity: 1, x: 0 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="max-w-5xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
@@ -310,9 +361,15 @@ export default function PhotoGallerySection() {
                 <h3 className="text-white text-[20px] sm:text-[24px] font-bold mb-1" style={{ fontFamily: 'var(--font-manrope)' }}>
                   {selectedImage.title}
                 </h3>
-                <span className="text-[13px] font-semibold uppercase tracking-wider" style={{ fontFamily: 'var(--font-inter)', color: 'var(--color-brand-orange)' }}>
-                  {selectedImage.category}
-                </span>
+                <div className="flex items-center justify-center gap-3 mt-1">
+                  <span className="text-[13px] font-semibold uppercase tracking-wider" style={{ fontFamily: 'var(--font-inter)', color: 'var(--color-brand-orange)' }}>
+                    {selectedImage.category}
+                  </span>
+                  <span className="text-white/40 text-[13px]">·</span>
+                  <span className="text-white/60 text-[13px] font-medium" style={{ fontFamily: 'var(--font-inter)' }}>
+                    {selectedIndex !== null ? selectedIndex + 1 : 0} / {allImages.length}
+                  </span>
+                </div>
               </div>
             </motion.div>
           </motion.div>

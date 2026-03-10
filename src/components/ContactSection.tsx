@@ -3,8 +3,7 @@ import locationIcon from '../assets/icon-location.svg';
 import phoneIcon from '../assets/icon-phone.svg';
 import emailIcon from '../assets/icon-email.svg';
 import clockIcon from '../assets/icon-clock.svg';
-import locationDotImg from '../assets/icon-location-dot.svg';
-import mapBg from '../assets/map-background.png';
+
 import HospitalLogo from './HospitalLogo';
 import { hospitalInfo } from '../data/hospital';
 import ScrollReveal from './ui/ScrollReveal';
@@ -32,15 +31,16 @@ export default function ContactSection() {
       style={{ minHeight: '400px', backgroundColor: 'var(--color-bg-light)' }}
     >
       {/* Background map - desktop only */}
-      <div
-        className="hidden lg:block absolute inset-0"
-        style={{
-          backgroundImage: `url(${mapBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 50%',
-        }}
-      >
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(240,244,255,0.6) 0%, transparent 60%)' }} />
+      <div className="hidden lg:block absolute inset-0 overflow-hidden">
+        <iframe
+          title="Hospital Location Map"
+          src="https://maps.google.com/maps?q=18.670563,78.104563&z=17&output=embed"
+          className="w-full h-full border-0"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          style={{ filter: 'grayscale(20%) contrast(1.05)' }}
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(240,244,255,0.55) 0%, transparent 55%)' }} />
       </div>
 
       {/* Contact card */}
@@ -119,19 +119,32 @@ export default function ContactSection() {
               </svg>
               Call Us Now
             </motion.a>
+
+            {/* Directions */}
+            <motion.a
+              href="https://maps.app.goo.gl/V99WXv8SwMfNn6Au7"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center justify-center gap-2 rounded-[10px] py-3 text-[14px] font-bold no-underline transition-all"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-manrope)',
+                border: '1px solid rgba(255,255,255,0.2)',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              Get Directions
+            </motion.a>
           </motion.div>
         </ScrollReveal>
       </div>
 
-      {/* Map location dot */}
-      <motion.div
-        className="hidden lg:block absolute"
-        style={{ left: '42%', top: '54%', transform: 'translate(-50%,-50%)' }}
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <img src={locationDotImg} alt="Location" style={{ width: 69, height: 69 }} />
-      </motion.div>
+
     </section>
   );
 }

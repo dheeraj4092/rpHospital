@@ -25,7 +25,7 @@ export const hospitalInfo: HospitalInfo = {
   name: 'RP Super Speciality Hospital',
   tagline: '50 Beds · ICU + Emergency · 24/7 · Super Speciality',
   established: 2025,
-  address: 'Near Government Hospital, Nizamabad, Telangana - 503001, India',
+  address: 'Bondugula Towers, 5-6-11 & 5-6-111/1, Hyderabad Rd, Dwaraka Nagar, Nizamabad, Telangana 503003',
   phone: '+91-98765-43210',
   email: 'contact@rphospital.com',
   emergencyPhone: '+91-98765-43211',

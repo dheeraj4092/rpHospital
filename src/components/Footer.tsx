@@ -180,26 +180,24 @@ export default function Footer() {
             © {currentYear} RP Super Speciality Hospital. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
+            <Link
+              to="/privacy-policy"
               className="text-[13px] font-medium transition-colors no-underline"
               style={{ fontFamily: 'var(--font-manrope)', color: 'rgba(255,255,255,0.6)' }}
               onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-brand-orange)')}
               onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
             >
               Privacy Policy
-            </a>
-            <a
-              href="#"
-              onClick={(e) => e.preventDefault()}
+            </Link>
+            <Link
+              to="/terms"
               className="text-[13px] font-medium transition-colors no-underline"
               style={{ fontFamily: 'var(--font-manrope)', color: 'rgba(255,255,255,0.6)' }}
               onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-brand-orange)')}
               onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
             >
-              Terms & Conditions
-            </a>
+              Terms &amp; Conditions
+            </Link>
           </div>
         </div>
       </div>
