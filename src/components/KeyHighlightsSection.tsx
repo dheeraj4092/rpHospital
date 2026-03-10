@@ -1,9 +1,4 @@
 export default function KeyHighlightsSection() {
-  const accreditations = [
-    { icon: '️', title: 'Award Winning', desc: 'Excellence in medical services' },
-    { icon: '🔒', title: 'Patient Safety', desc: 'Highest safety protocols maintained' },
-  ];
-
   const insurancePartners = [
     'Star Health Insurance',
     'ICICI Lombard',
