@@ -193,15 +193,17 @@ export default function AppointmentModal({ isOpen, onClose, prefillData }: Appoi
                   onFocus={e => { e.currentTarget.style.borderColor = 'var(--color-brand-orange)'; }}
                   onBlur={e => { e.currentTarget.style.borderColor = '#E5E7EB'; }}
                 >
-                  <option value="">Select a department</option>
-                  <option value="Cardiology">Cardiology</option>
-                  <option value="Neurology">Neurology</option>
-                  <option value="Orthopedics">Orthopedics</option>
-                  <option value="Pediatrics">Pediatrics</option>
+                <option value="">Select a department</option>
+                  <option value="Pulmonology">Pulmonology</option>
                   <option value="Ophthalmology">Ophthalmology</option>
-                  <option value="Oncology">Oncology</option>
-                  <option value="Gynecology">Gynecology</option>
-                  <option value="Emergency Care">Emergency Care</option>
+                  <option value="Neuro & Neuro Surgery">Neuro &amp; Neuro Surgery</option>
+                  <option value="General Surgery">General Surgery</option>
+                  <option value="Urology">Urology</option>
+                  <option value="Nephrology">Nephrology</option>
+                  <option value="Orthopaedics">Orthopaedics</option>
+                  <option value="ENT">ENT</option>
+                  <option value="Emergency & Critical Care">Emergency &amp; Critical Care</option>
+                  <option value="Anaesthesia & Critical Care">Anaesthesia &amp; Critical Care</option>
                   <option value="General">General Consultation</option>
                 </select>
               </div>

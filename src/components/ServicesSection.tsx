@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AnimatedCounter from './ui/AnimatedCounter';
 import { StaggerContainer, staggerItemVariants } from './ui/ScrollReveal';
@@ -15,75 +16,91 @@ interface Service {
   description: string;
   accent: string;
   accentDark: string;
+  departmentId: string;
 }
 
 const services: Service[] = [
-  { 
-    emoji: '🫁', 
-    title: 'Pulmonology', 
-    description: 'Specialized care for respiratory and lung conditions including bronchoscopy, thoracoscopy, sleep study, and allergy testing.', 
-    accent: '#E3F2FD', 
-    accentDark: '#42A5F5' 
+  {
+    emoji: '🫁',
+    title: 'Pulmonology',
+    description: 'Specialized care for respiratory and lung conditions including bronchoscopy, thoracoscopy, sleep study, and allergy testing.',
+    accent: '#E3F2FD',
+    accentDark: '#42A5F5',
+    departmentId: 'dept-pulmonology',
   },
-  { 
-    emoji: '👁️', 
-    title: 'Ophthalmology', 
-    description: 'Complete eye care — cataract surgery (Phaco), pterygium surgery, DCR surgery, and comprehensive vision assessment.', 
-    accent: '#FFF8E1', 
-    accentDark: '#FFCA28' 
+  {
+    emoji: '👁️',
+    title: 'Ophthalmology',
+    description: 'Complete eye care — cataract surgery (Phaco), pterygium surgery, DCR surgery, and comprehensive vision assessment.',
+    accent: '#FFF8E1',
+    accentDark: '#FFCA28',
+    departmentId: 'dept-ophthalmology',
   },
-  { 
-    emoji: '🧠', 
-    title: 'Neuro & Neuro Surgery', 
-    description: 'Advanced neurological care and neurosurgical procedures for brain, spine, and nervous system disorders.', 
-    accent: '#EDE7F6', 
-    accentDark: '#7E57C2' 
+  {
+    emoji: '🧠',
+    title: 'Neuro & Neuro Surgery',
+    description: 'Advanced neurological care and neurosurgical procedures for brain, spine, and nervous system disorders.',
+    accent: '#EDE7F6',
+    accentDark: '#7E57C2',
+    departmentId: 'dept-neurosurgery',
   },
-  { 
-    emoji: '🔪', 
-    title: 'General Surgery', 
-    description: 'Comprehensive surgical procedures including laparoscopic surgery, hernia repair, and gastrointestinal surgeries.', 
-    accent: '#E8F5E9', 
-    accentDark: '#66BB6A' 
+  {
+    emoji: '🔪',
+    title: 'General Surgery',
+    description: 'Comprehensive surgical procedures including laparoscopic surgery, hernia repair, and gastrointestinal surgeries.',
+    accent: '#E8F5E9',
+    accentDark: '#66BB6A',
+    departmentId: 'dept-general-surgery',
   },
-  { 
-    emoji: '💧', 
-    title: 'Urology', 
-    description: 'Expert care for urinary tract and male reproductive system including kidney stone treatment and prostate care.', 
-    accent: '#E1F5FE', 
-    accentDark: '#29B6F6' 
+  {
+    emoji: '💧',
+    title: 'Urology',
+    description: 'Expert care for urinary tract and male reproductive system including kidney stone treatment and prostate care.',
+    accent: '#E1F5FE',
+    accentDark: '#29B6F6',
+    departmentId: 'dept-urology',
   },
-  { 
-    emoji: '🫘', 
-    title: 'Nephrology', 
-    description: 'Comprehensive kidney care and dialysis services for chronic kidney disease and related disorders.', 
-    accent: '#FFF3E0', 
-    accentDark: '#FFA726' 
+  {
+    emoji: '🫘',
+    title: 'Nephrology',
+    description: 'Comprehensive kidney care and dialysis services for chronic kidney disease and related disorders.',
+    accent: '#FFF3E0',
+    accentDark: '#FFA726',
+    departmentId: 'dept-nephrology',
   },
-  { 
-    emoji: '🦴', 
-    title: 'Orthopaedics', 
-    description: 'Advanced bone, joint & muscle treatments including joint replacement, fracture care, and sports injury management.', 
-    accent: '#F3E5F5', 
-    accentDark: '#AB47BC' 
+  {
+    emoji: '🦴',
+    title: 'Orthopaedics',
+    description: 'Advanced bone, joint & muscle treatments including joint replacement, fracture care, and sports injury management.',
+    accent: '#F3E5F5',
+    accentDark: '#AB47BC',
+    departmentId: 'dept-orthopaedics',
   },
-  { 
-    emoji: '👂', 
-    title: 'ENT', 
-    description: 'Ear, nose, and throat specialist care including sinus treatment, hearing loss, and voice disorder management.', 
-    accent: '#FCE4EC', 
-    accentDark: '#EC407A' 
+  {
+    emoji: '👂',
+    title: 'ENT',
+    description: 'Ear, nose, and throat specialist care including sinus treatment, hearing loss, and voice disorder management.',
+    accent: '#FCE4EC',
+    accentDark: '#EC407A',
+    departmentId: 'dept-ent',
   },
-  { 
-    emoji: '🚑', 
-    title: 'Emergency & Critical Care', 
-    description: '24/7 emergency services with ICU facilities, rapid response teams, and critical care monitoring.', 
-    accent: '#FFEBEE', 
-    accentDark: '#EF5350' 
+  {
+    emoji: '🚑',
+    title: 'Emergency & Critical Care',
+    description: '24/7 emergency services with ICU facilities, anaesthesia, rapid response teams, and critical care monitoring.',
+    accent: '#FFEBEE',
+    accentDark: '#EF5350',
+    departmentId: 'dept-emergency',
   },
 ];
 
 export default function ServicesSection() {
+  const navigate = useNavigate();
+
+  const handleServiceClick = (departmentId: string) => {
+    navigate(`/doctors?dept=${departmentId}`);
+  };
+
   return (
     <section id="services" className="bg-white">
       {/* Services Grid */}
@@ -99,7 +116,7 @@ export default function ServicesSection() {
               key={service.title}
               variants={staggerItemVariants}
             >
-              <ServiceCard service={service} />
+              <ServiceCard service={service} onClick={() => handleServiceClick(service.departmentId)} />
             </motion.div>
           ))}
         </StaggerContainer>
@@ -137,11 +154,12 @@ export default function ServicesSection() {
   );
 }
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({ service, onClick }: { service: Service; onClick: () => void }) {
   return (
     <motion.div
       className="group flex flex-col gap-4 rounded-[20px] p-5 md:p-6 border cursor-pointer h-full"
       style={{ backgroundColor: '#FAFBFF', borderColor: '#f3f4f6' }}
+      onClick={onClick}
       whileHover={{
         y: -6,
         boxShadow: '0 16px 40px rgba(26,36,114,0.12)',
@@ -177,7 +195,7 @@ function ServiceCard({ service }: { service: Service }) {
           style={{ color: 'var(--color-brand-orange)' }}
           whileHover={{ x: 4 }}
         >
-          Learn more →
+          View Specialist →
         </motion.span>
       </div>
     </motion.div>

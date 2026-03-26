@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { IconUserHeart } from '@tabler/icons-react';
 import DoctorsSection from '../components/DoctorsSection';
 import AppointmentModal from '../components/AppointmentModal';
@@ -14,6 +15,8 @@ export default function DoctorsPage() {
     doctorName?: string;
     department?: string;
   } | undefined>(undefined);
+  const [searchParams] = useSearchParams();
+  const activeDeptId = searchParams.get('dept') || undefined;
   const meta = buildPageMeta('/doctors');
 
   const handleBookAppointment = (doctor: any) => {
@@ -48,7 +51,10 @@ export default function DoctorsPage() {
         accentColor="#8B5CF6"
         breadcrumb={[{ label: 'Doctors' }]}
       />
-      <DoctorsSection onBookAppointment={handleBookAppointment} />
+      <DoctorsSection
+        onBookAppointment={handleBookAppointment}
+        activeDeptId={activeDeptId}
+      />
       <PageNavigation />
       <AppointmentModal
         isOpen={isModalOpen}
