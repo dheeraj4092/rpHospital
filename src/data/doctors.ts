@@ -96,7 +96,7 @@ export const doctors: Doctor[] = [
       'Indian Sleep Disorders Association',
       'Indian College of Allergy, Asthma & Applied Immunology',
     ],
-    photoUrl: '/DSC02949.png',
+    photoUrl: '/rp.png',
     bio: 'Gold Medalist with over 15 years of experience in pulmonology and respiratory medicine. Specializes in advanced bronchoscopy procedures, thoracoscopy, sleep disorders, and certified in allergy testing and immunology. Expertise in managing asthma, chronic lung diseases, and respiratory infections.',
     department: pulmonologyDept,
   },
@@ -118,7 +118,7 @@ export const doctors: Doctor[] = [
       'Member of Telangana Ophthalmological Society',
       'Member of Delhi Ophthalmological Society',
     ],
-    photoUrl: '/DSC02826.png',
+    photoUrl: '/vanitha.png',
     bio: 'Experienced ophthalmologist with over 10 years of expertise in advanced cataract surgery (Phaco), pterygium surgery, DCR surgery, and comprehensive eye care. Committed to providing evidence-based eye care and surgical excellence. Member of Telangana and Delhi Ophthalmological Societies.',
     department: ophthalmologyDept,
   },
@@ -140,6 +140,7 @@ export const doctors: Doctor[] = [
     isGoldMedalist: false,
     memberships: [],
     bio: 'Specialist in anaesthesia and critical care with expertise in general, regional, spinal, and epidural anaesthesia techniques. Experienced in comprehensive ICU management and critical care protocols, ensuring safe and effective anaesthetic care for patients across all surgical specialties.',
+    photoUrl: '/babu.png',
     department: emergencyDept,
   },
   {
@@ -163,6 +164,7 @@ export const doctors: Doctor[] = [
       'Member of Neurosurgical Society of India (NSSI)',
     ],
     bio: 'Highly trained neurosurgeon with advanced qualifications in both general surgery and neurosurgery (MCh). Specializes in complex brain tumour surgeries, spine surgeries, peripheral nerve procedures, and laparoscopic techniques. Active member of NSI and NSSI.',
+    photoUrl: '/vinod.png',
     department: neuroSurgeryDept,
   },
 ];

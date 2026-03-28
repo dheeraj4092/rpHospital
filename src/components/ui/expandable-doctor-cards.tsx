@@ -145,25 +145,26 @@ export default function ExpandableDoctorCards({
               animate={!clickedToOpen.current ? { opacity: 1, scale: 1, y: 0 } : undefined}
               exit={!clickedToOpen.current ? { opacity: 0, scale: 0.96, y: 20 } : undefined}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="w-full flex flex-col bg-white rounded-3xl overflow-hidden shadow-2xl"
-              style={{ maxWidth: 560, maxHeight: "86vh" }}
+              className="w-full flex flex-col sm:flex-row bg-white rounded-3xl overflow-hidden shadow-2xl"
+              style={{ maxWidth: 760, maxHeight: "86vh" }}
             >
               {/* Doctor image */}
               <motion.div
                 {...sharedImageProps}
-                className="shrink-0 flex items-center justify-center"
+                className="shrink-0 flex items-center justify-center w-full sm:w-[320px] h-[260px] sm:h-auto"
                 style={{
                   background: "linear-gradient(135deg, #EEF1FA 0%, #E6ECFF 100%)",
-                  height: 260,
-                  maxHeight: "36vh",
+                  minHeight: 260,
+                  height: '100%',
+                  maxHeight: '100%',
                 }}
               >
                 {active.photoUrl ? (
                   <img
                     src={active.photoUrl}
                     alt={active.name}
-                    className="w-full h-full object-contain"
-                    style={{ padding: "12px 14px" }}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'center', borderRadius: 0 }}
                   />
                 ) : (
                   <div
@@ -179,7 +180,7 @@ export default function ExpandableDoctorCards({
               </motion.div>
 
               {/* Scrollable content */}
-              <div className="overflow-y-auto flex-1" style={{ scrollbarWidth: "thin" }}>
+              <div className="overflow-y-auto flex-1" style={{ scrollbarWidth: "thin", minWidth: 0 }}>
                 <div className="p-5 sm:p-6">
                   {/* Name */}
                   <motion.h3
