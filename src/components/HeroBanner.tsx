@@ -13,6 +13,10 @@ import {
 } from '@tabler/icons-react';
 import { scrollToSection } from '../utils/scroll';
 import AnimatedCounter from './ui/AnimatedCounter';
+import doctorImage1 from '../assets/1.webp';
+import doctorImage2 from '../assets/2.webp';
+import doctorImage3 from '../assets/3.webp';
+import doctorImage4 from '../assets/4.webp';
 
 interface HeroBannerProps {
   onAppointmentClick: () => void;
@@ -49,13 +53,25 @@ const doctorProfiles = [
     id: 'doc-rajendra',
     name: 'Dr. Rajendra Prasad Boddula',
     title: 'Pulmonology & Respiratory Medicine',
-    photo: '/DSC02949.png',
+    photo: doctorImage1,
   },
   {
     id: 'doc-vanitha',
     name: 'Dr. Vanitha A',
     title: 'Ophthalmology',
-    photo: '/DSC02826.png',
+    photo: doctorImage2,
+  },
+  {
+    id: 'doc-specialist-1',
+    name: 'RK Hospital Specialist Team',
+    title: 'Comprehensive Multi-Specialty Care',
+    photo: doctorImage3,
+  },
+  {
+    id: 'doc-specialist-2',
+    name: 'RK Hospital Clinical Experts',
+    title: 'Advanced Diagnostics & Treatment',
+    photo: doctorImage4,
   }
 ];
 
@@ -321,7 +337,7 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
           />
 
           <motion.div
-            className="relative w-full max-w-[460px] lg:max-w-[520px]"
+            className="relative w-full max-w-[560px] lg:max-w-[640px]"
             initial={{ opacity: 0, x: 40, scale: 0.97 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -333,7 +349,7 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
                 boxShadow: '0 18px 60px rgba(26,36,114,0.16)',
                 background:
                   'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(247,148,29,0.06))',
-                maxHeight: '420px',
+                maxHeight: '560px',
               }}
             >
               <div className="absolute inset-0 pointer-events-none" style={{
@@ -342,7 +358,7 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
               }} />
 
               {/* All doctor images are always in the DOM — only opacity is animated, preventing repeated fetches */}
-              <div className="relative" style={{ maxHeight: '420px', overflow: 'hidden' }}>
+              <div className="relative" style={{ maxHeight: '560px', minHeight: '500px', overflow: 'hidden' }}>
                 {doctorProfiles.map((doc, i) => (
                   <motion.div
                     key={doc.id}
@@ -354,7 +370,7 @@ export default function HeroBanner({ onAppointmentClick, onServicesClick }: Hero
                       src={doc.photo}
                       alt={doc.name}
                       className="w-full h-full object-cover"
-                      style={{ maxHeight: '420px', display: 'block' }}
+                      style={{ minHeight: '500px', maxHeight: '560px', display: 'block' }}
                     />
                   </motion.div>
                 ))}
