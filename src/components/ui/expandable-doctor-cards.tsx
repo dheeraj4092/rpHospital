@@ -5,8 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import type { Doctor } from "@/data/doctors";
 
-const HOSPITAL_PHONE = '+919090900580';
-const HOSPITAL_WHATSAPP = '919090900580';
+const HOSPITAL_PHONE = '+919032323258'; // Replace with your hospital's phone number
+const HOSPITAL_WHATSAPP = '919032323258'; // Replace with your hospital's WhatsApp number
 
 interface ExpandableDoctorCardsProps {
   doctors: Doctor[];

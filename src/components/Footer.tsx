@@ -148,7 +148,7 @@ export default function Footer() {
                   className="text-[14px] font-medium leading-[1.6]"
                   style={{ fontFamily: 'var(--font-manrope)', color: 'rgba(255,255,255,0.7)' }}
                 >
-                  +91-98765-43210
+                  +91-99032323258
                 </span>
               </li>
               <li className="flex items-start gap-2">

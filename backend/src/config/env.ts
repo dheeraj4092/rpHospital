@@ -8,6 +8,16 @@ const envSchema = z.object({
   PORT: z.string().default('5000'),
   FRONTEND_URL: z.string().url().default('http://localhost:5173'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
+  APPOINTMENT_NOTIFICATION_EMAIL: z.string().email().default('contact@rphospital.com'),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().int().positive().default(587),
+  SMTP_SECURE: z
+    .enum(['true', 'false'])
+    .optional()
+    .transform((value) => value === 'true'),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  SMTP_FROM: z.string().email().optional(),
   // Optional for future use
   DATABASE_URL: z.string().url().optional(),
   JWT_SECRET: z.string().min(10).optional(),

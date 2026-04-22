@@ -39,6 +39,8 @@ export interface Appointment {
   doctorId?: string;
   departmentId?: string;
   notes?: string;
+  source?: string;
+  campaign?: string;
   preferredDate?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -315,9 +317,9 @@ export function initializeData() {
     tagline: '50 Beds · ICU + Emergency · 24/7 · Super Speciality',
     established: 2025,
     address: 'Near Government Hospital, Nizamabad, Telangana - 503001, India',
-    phone: '+91-98765-43210',
+    phone: '+91-9032323258',
     email: 'contact@rphospital.com',
-    emergencyPhone: '+91-98765-43211',
+    emergencyPhone: '+91-9032323258',
     weekdayHours: 'Mon-Fri: 08:00 AM - 08:00 PM',
     saturdayHours: 'Sat: 09:00 AM - 06:00 PM',
     sundayHours: 'Sun: 10:00 AM - 02:00 PM (Emergency 24/7)',

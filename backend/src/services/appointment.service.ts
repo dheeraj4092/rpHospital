@@ -5,8 +5,11 @@ export interface CreateAppointmentData {
   phone: string;
   doctorId?: string;
   departmentId?: string;
+  departmentName?: string;
   notes?: string;
   preferredDate?: Date;
+  source?: string;
+  campaign?: string;
 }
 
 export interface UpdateAppointmentData {
@@ -23,17 +26,27 @@ const generateAppointmentId = () => `apt_${Date.now()}_${appointmentCounter++}`;
 
 export const appointmentService = {
   async createAppointment(data: CreateAppointmentData) {
+    const resolvedDepartmentId =
+      data.departmentId ||
+      (data.departmentName
+        ? dataStore.departments.find(
+            (department) => department.name.toLowerCase() === data.departmentName?.toLowerCase()
+          )?.id
+        : undefined);
+
     const newAppointment = {
       id: generateAppointmentId(),
       patientName: data.patientName,
       phone: data.phone,
       doctorId: data.doctorId,
-      departmentId: data.departmentId,
+      departmentId: resolvedDepartmentId,
       notes: data.notes,
       preferredDate: data.preferredDate,
       status: 'PENDING' as AppointmentStatus,
       createdAt: new Date(),
       updatedAt: new Date(),
+      source: data.source,
+      campaign: data.campaign,
     };
 
     dataStore.appointments.push(newAppointment);
@@ -42,8 +55,8 @@ export const appointmentService = {
     const doctor = data.doctorId
       ? dataStore.doctors.find((d) => d.id === data.doctorId)
       : undefined;
-    const department = data.departmentId
-      ? dataStore.departments.find((d) => d.id === data.departmentId)
+    const department = resolvedDepartmentId
+      ? dataStore.departments.find((d) => d.id === resolvedDepartmentId)
       : undefined;
 
     return {

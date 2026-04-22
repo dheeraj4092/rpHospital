@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { api } from '../services/api';
 
 interface AppointmentModalProps {
   isOpen: boolean;
@@ -65,18 +66,34 @@ export default function AppointmentModal({ isOpen, onClose, prefillData }: Appoi
       setMessage({ type: 'error', text: 'Please fill in required fields (Name & Phone)' });
       return;
     }
+
     setLoading(true);
     setMessage(null);
-    
-    // Simulate API call with setTimeout (frontend-only)
-    setTimeout(() => {
-      setMessage({ 
-        type: 'success', 
-        text: 'Appointment request submitted successfully! We will contact you soon.' 
+
+    try {
+      await api.createAppointment({
+        patientName: formData.name.trim(),
+        phone: formData.phone.trim(),
+        doctorId: prefillData?.doctorId,
+        departmentName: formData.department || undefined,
+        notes: formData.message.trim() || undefined,
+        source: prefillData?.source || 'website',
+        campaign: prefillData?.campaign,
       });
-      setLoading(false);
+
+      setMessage({
+        type: 'success',
+        text: 'Appointment request submitted successfully! We will contact you soon.',
+      });
       setTimeout(onClose, 2000);
-    }, 1000);
+    } catch (error: any) {
+      setMessage({
+        type: 'error',
+        text: error?.message || 'Failed to submit appointment request. Please try again.',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

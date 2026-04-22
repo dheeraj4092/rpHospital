@@ -9,7 +9,12 @@
     "build": "tsc",
     "start": "node dist/server.js"
   },
-  "keywords": ["hospital", "healthcare", "api", "express"],
+  "keywords": [
+    "hospital",
+    "healthcare",
+    "api",
+    "express"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -19,13 +24,16 @@
     "express": "^4.18.3",
     "express-rate-limit": "^7.2.0",
     "helmet": "^7.1.0",
+    "nodemailer": "^8.0.5",
     "winston": "^3.12.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.25",
+    "@types/nodemailer": "^8.0.0",
     "tsx": "^4.7.1",
     "typescript": "^5.4.2"
   }

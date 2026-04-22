@@ -16,7 +16,10 @@ export const createAppointmentSchema = z.object({
     .max(15, 'Phone number must not exceed 15 digits'),
   doctorId: z.string().optional(),
   departmentId: z.string().optional(),
+  departmentName: z.string().max(100, 'Department name must not exceed 100 characters').optional(),
   notes: z.string().max(500, 'Notes must not exceed 500 characters').optional(),
+  source: z.string().max(100, 'Source must not exceed 100 characters').optional(),
+  campaign: z.string().max(100, 'Campaign must not exceed 100 characters').optional(),
   preferredDate: z.string().datetime().optional().or(z.date().optional()),
 });
 

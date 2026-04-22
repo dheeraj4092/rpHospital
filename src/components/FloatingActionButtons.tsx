@@ -11,13 +11,13 @@ export default function FloatingActionButtons() {
   }, []);
 
   const handleWhatsApp = () => {
-    const phoneNumber = '919090900580';
+    const phoneNumber = '919032323258'; // Replace with your hospital's WhatsApp number
     const message = encodeURIComponent('Hello, I would like to inquire about your services.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
   const handleEmergency = () => {
-    window.location.href = 'tel:+919090900580';
+    window.location.href = 'tel:+919032323258'; // Replace with your hospital's emergency number
   };
 
   const scrollToTop = () => {

@@ -26,9 +26,9 @@ export const hospitalInfo: HospitalInfo = {
   tagline: '50 Beds · ICU + Emergency · 24/7 · Super Speciality',
   established: 2025,
   address: 'Bondugula Towers, 5-6-11 & 5-6-111/1, Hyderabad Rd, Dwaraka Nagar, Nizamabad, Telangana 503003',
-  phone: '+91-98765-43210',
+  phone: '+91-9032323258',
   email: 'contact@rphospital.com',
-  emergencyPhone: '+91-98765-43211',
+  emergencyPhone: '+91-9032323258',
   operatingHours: {
     weekdays: 'Mon-Fri: 08:00 AM - 08:00 PM',
     saturday: 'Sat: 09:00 AM - 06:00 PM',

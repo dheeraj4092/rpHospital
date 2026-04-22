@@ -55,6 +55,7 @@ export interface CreateAppointmentData {
   phone: string;
   doctorId?: string;
   departmentId?: string;
+  departmentName?: string;
   notes?: string;
   source?: string;
   campaign?: string;

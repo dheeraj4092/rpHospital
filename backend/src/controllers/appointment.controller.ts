@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { appointmentService } from '../services/appointment.service.js';
+import { emailService } from '../services/email.service.js';
 import { sendSuccess, sendError } from '../utils/response.js';
 import logger from '../utils/logger.js';
 
@@ -14,6 +15,20 @@ export const appointmentController = {
       }
 
       const appointment = await appointmentService.createAppointment(appointmentData);
+
+      // Fire-and-forget style notification: do not fail appointment creation if email fails.
+      await emailService.sendAppointmentNotification({
+        appointmentId: appointment.id,
+        patientName: appointment.patientName,
+        phone: appointment.phone,
+        doctorName: appointment.doctor?.name,
+        departmentName: appointment.department?.name,
+        preferredDate: appointmentData.preferredDate,
+        notes: appointmentData.notes,
+        source: appointmentData.source,
+        campaign: appointmentData.campaign,
+        createdAt: appointment.createdAt,
+      });
 
       logger.info(`New appointment created: ${appointment.id} for ${appointment.patientName}`);
 

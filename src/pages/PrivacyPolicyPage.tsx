@@ -89,7 +89,7 @@ const sections = [
       'If you have any questions or concerns about this Privacy Policy or how your data is handled, please contact us:',
       '• **Hospital:** RP Super Speciality Hospital, Nizamabad, Telangana, India',
       '• **Email:** contact@rphospital.com',
-      '• **Phone:** +91-98765-43210',
+      '• **Phone:** +91-9032323258',
     ],
   },
 ];

@@ -53,6 +53,20 @@ The server will start with pre-populated sample data.
 
 See `.env.example` for optional environment variables.
 
+### Appointment Email Notifications
+
+To receive appointment notifications by email, configure SMTP in `.env`:
+
+- `APPOINTMENT_NOTIFICATION_EMAIL`: recipient email for booking alerts
+- `SMTP_HOST`: SMTP server host (for example `smtp.gmail.com`)
+- `SMTP_PORT`: SMTP port (usually `587` for TLS or `465` for SSL)
+- `SMTP_SECURE`: `true` for SSL (`465`), `false` for STARTTLS (`587`)
+- `SMTP_USER`: SMTP username/login
+- `SMTP_PASS`: SMTP password or app password
+- `SMTP_FROM`: sender email address shown in outgoing messages
+
+If SMTP is not configured, appointments are still created and the API continues to work, but email notifications are skipped.
+
 ## Data Storage
 
 Currently using in-memory storage. All data is stored in `/src/data/store.ts`.

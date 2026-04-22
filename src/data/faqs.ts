@@ -14,11 +14,11 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: 'How do I book an appointment?',
-    a: 'You can book an appointment online through our website by clicking the "Book Appointment" button, call us at +91-98765-43210, or walk in to our reception desk. We also offer WhatsApp appointment booking.',
+    a: 'You can book an appointment online through our website by clicking the "Book Appointment" button, call us at +91-9032323258, or walk in to our reception desk. We also offer WhatsApp appointment booking.',
   },
   {
     q: 'Is emergency care available 24/7?',
-    a: 'Absolutely. Our Emergency Department operates 24 hours a day, 7 days a week, 365 days a year. We have a dedicated trauma team and emergency physicians always on standby. Our emergency number is +91-98765-43211.',
+    a: 'Absolutely. Our Emergency Department operates 24 hours a day, 7 days a week, 365 days a year. We have a dedicated trauma team and emergency physicians always on standby. Our emergency number is +91-9032323258.',
   },
   {
     q: 'What specialties and departments do you offer?',

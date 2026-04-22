@@ -63,13 +63,13 @@ const doctorProfiles = [
   },
   {
     id: 'doc-specialist-1',
-    name: 'RK Hospital Specialist Team',
+    name: 'RP Hospital Specialist Team',
     title: 'Comprehensive Multi-Specialty Care',
     photo: doctorImage3,
   },
   {
     id: 'doc-specialist-2',
-    name: 'RK Hospital Clinical Experts',
+    name: 'RP Hospital Clinical Experts',
     title: 'Advanced Diagnostics & Treatment',
     photo: doctorImage4,
   }

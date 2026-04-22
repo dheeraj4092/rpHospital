@@ -99,7 +99,7 @@ const sections = [
       'For any questions regarding these Terms & Conditions, please reach out to us:',
       '• **Hospital:** RP Super Speciality Hospital, Nizamabad, Telangana, India',
       '• **Email:** contact@rphospital.com',
-      '• **Phone:** +91-98765-43210',
+      '• **Phone:** +91-9032323258',
     ],
   },
 ];
