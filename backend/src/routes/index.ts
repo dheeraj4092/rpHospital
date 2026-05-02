@@ -5,6 +5,7 @@ import departmentRoutes from './department.routes.js';
 import hospitalRoutes from './hospital.routes.js';
 import partnerRoutes from './partner.routes.js';
 import bookingRoutes from './booking.routes.js';
+import careersRoutes from './careers.routes.js';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/departments', departmentRoutes);
 router.use('/hospital-info', hospitalRoutes);
 router.use('/partners', partnerRoutes);
 router.use('/booking', bookingRoutes);
+router.use('/careers', careersRoutes);
 
 export default router;

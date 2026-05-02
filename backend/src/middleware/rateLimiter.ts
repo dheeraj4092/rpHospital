@@ -18,6 +18,23 @@ export const appointmentLimiter = rateLimit({
   },
 });
 
+// Rate limiter for careers applications - 8 requests per hour per IP
+export const careerApplicationLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 8,
+  message: 'Too many career applications from this IP, please try again after an hour',
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (_req, res) => {
+    return sendError(
+      res,
+      'RATE_LIMIT_EXCEEDED',
+      'Too many applications submitted. Please try again later.',
+      429
+    );
+  },
+});
+
 // General rate limiter - 100 requests per 15 minutes per IP
 export const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

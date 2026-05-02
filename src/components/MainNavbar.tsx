@@ -9,6 +9,7 @@ import {
   IconUserHeart,
   IconPhoto,
   IconPhone,
+  IconBriefcase,
   IconMenu2,
   IconX,
 } from '@tabler/icons-react';
@@ -23,6 +24,7 @@ const navLinks = [
   { label: 'Services', path: '/services', icon: IconStethoscope, exact: false },
   { label: 'Doctors', path: '/doctors', icon: IconUserHeart, exact: false },
   { label: 'Gallery', path: '/gallery', icon: IconPhoto, exact: false },
+  { label: 'Careers', path: '/careers', icon: IconBriefcase, exact: false },
   { label: 'Contact', path: '/contact', icon: IconPhone, exact: false },
 ];
 

@@ -69,6 +69,19 @@ export interface DeeplinkPayload {
   source: string;
 }
 
+export interface CreateCareerApplicationData {
+  fullName: string;
+  email: string;
+  phone: string;
+  position: string;
+  experience: string;
+  currentLocation: string;
+  coverLetter: string;
+  resumeFileName?: string;
+  resumeFileType?: string;
+  resumeFileBase64?: string;
+}
+
 class ApiService {
   private async request<T>(
     endpoint: string,
@@ -151,6 +164,14 @@ class ApiService {
     return this.request<{ signedUrl: string; expiresAt: string }>('/partners/deeplink', {
       method: 'POST',
       body: JSON.stringify(params),
+    });
+  }
+
+  // Careers
+  async createCareerApplication(data: CreateCareerApplicationData) {
+    return this.request('/careers/applications', {
+      method: 'POST',
+      body: JSON.stringify(data),
     });
   }
 }

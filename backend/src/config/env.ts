@@ -9,6 +9,9 @@ const envSchema = z.object({
   FRONTEND_URL: z.string().url().default('http://localhost:5173'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
   APPOINTMENT_NOTIFICATION_EMAIL: z.string().email().default('contact@rphospital.com'),
+  CAREERS_NOTIFICATION_EMAIL: z.string().email().optional(),
+  RESEND_API_KEY: z.string().optional(),
+  RESEND_FROM: z.string().email().optional(),
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.coerce.number().int().positive().default(587),
   SMTP_SECURE: z

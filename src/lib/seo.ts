@@ -175,6 +175,10 @@ export const routeMeta = {
     title: 'Contact RP Super Speciality Hospital',
     description: 'Contact RP Super Speciality Hospital in Nizamabad for appointments, emergencies, and general enquiries.',
   },
+  '/careers': {
+    title: 'Careers at RP Super Speciality Hospital',
+    description: 'Explore hospital job openings at RP Super Speciality Hospital and apply online for clinical and non-clinical roles.',
+  },
 };
 
 export const buildPageMeta = (path: keyof typeof routeMeta) => ({

@@ -10,6 +10,7 @@ export default function Footer() {
     { label: 'Services', path: '/services' },
     { label: 'Doctors', path: '/doctors' },
     { label: 'Gallery', path: '/gallery' },
+    { label: 'Careers', path: '/careers' },
     { label: 'Contact', path: '/contact' },
   ];
 
