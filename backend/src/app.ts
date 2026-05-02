@@ -64,8 +64,9 @@ app.use(
 );
 
 // Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Careers resume uploads are sent as base64 JSON, so we allow a larger body size.
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Lightweight caching for idempotent GET responses
 app.use((req, res, next) => {

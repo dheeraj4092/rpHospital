@@ -70,6 +70,16 @@ export const errorHandler = (
     return sendError(res, 'VALIDATION_ERROR', error.message, 400);
   }
 
+  // Handle payload too large errors from express body parser
+  if (error.type === 'entity.too.large') {
+    return sendError(
+      res,
+      'PAYLOAD_TOO_LARGE',
+      'Uploaded file is too large. Please upload a smaller resume.',
+      413
+    );
+  }
+
   // Default error
   return sendError(
     res,
