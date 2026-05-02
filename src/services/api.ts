@@ -99,7 +99,16 @@ class ApiService {
       const data: ApiResponse<T> = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error?.message || 'Request failed');
+        const firstValidationError =
+          Array.isArray(data.error?.details) && data.error?.details.length > 0
+            ? data.error.details[0]
+            : null;
+
+        const detailedMessage = firstValidationError
+          ? `${firstValidationError.field}: ${firstValidationError.message}`
+          : data.error?.message || 'Request failed';
+
+        throw new Error(detailedMessage);
       }
 
       return data;

@@ -14,6 +14,10 @@ const app: Application = express();
 app.use(helmet());
 app.use(compression());
 
+// Trust proxy headers (required on platforms like Render/Heroku behind load balancers)
+// so express-rate-limit can correctly read client IP from X-Forwarded-For.
+app.set('trust proxy', 1);
+
 const buildAllowedOrigins = (frontendUrl: string) => {
   const normalized = frontendUrl.replace(/\/+$/, '');
   const values = new Set<string>([normalized]);
