@@ -7,6 +7,7 @@ import { requestLogger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { generalLimiter } from './middleware/rateLimiter.js';
 import routes from './routes/index.js';
+import logger from './utils/logger.js';
 
 const app: Application = express();
 
@@ -41,27 +42,43 @@ const buildAllowedOrigins = (frontendUrl: string) => {
 
 const allowedOrigins = buildAllowedOrigins(env.FRONTEND_URL);
 
+const isAllowedOrigin = (origin: string) => {
+  const normalizedOrigin = origin.replace(/\/+$/, '');
+  if (allowedOrigins.has(normalizedOrigin)) return true;
+
+  // Allow production domain variants explicitly (www and subdomains over https)
+  if (/^https:\/\/([a-z0-9-]+\.)?rphospitals\.in$/i.test(normalizedOrigin)) return true;
+
+  // Allow local development origins
+  if (/^http:\/\/localhost:\d+$/i.test(normalizedOrigin)) return true;
+  if (/^http:\/\/127\.0\.0\.1:\d+$/i.test(normalizedOrigin)) return true;
+
+  return false;
+};
+
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    // Allow non-browser requests (curl/health checks/postman)
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    if (isAllowedOrigin(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    logger.warn(`Blocked CORS origin: ${origin}`);
+    // Do not throw error here; just disable CORS for this origin to avoid 500 preflight.
+    callback(null, false);
+  },
+  credentials: true,
+};
+
 // CORS configuration
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow non-browser requests (curl/health checks/postman)
-      if (!origin) {
-        callback(null, true);
-        return;
-      }
-
-      const normalizedOrigin = origin.replace(/\/+$/, '');
-      if (allowedOrigins.has(normalizedOrigin)) {
-        callback(null, true);
-        return;
-      }
-
-      callback(new Error(`Origin ${origin} is not allowed by CORS`));
-    },
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Body parsing middleware
 // Careers resume uploads are sent as base64 JSON, so we allow a larger body size.
