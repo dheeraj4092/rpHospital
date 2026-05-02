@@ -14,10 +14,47 @@ const app: Application = express();
 app.use(helmet());
 app.use(compression());
 
+const buildAllowedOrigins = (frontendUrl: string) => {
+  const normalized = frontendUrl.replace(/\/+$/, '');
+  const values = new Set<string>([normalized]);
+
+  try {
+    const url = new URL(normalized);
+    const host = url.hostname;
+    const protocol = url.protocol;
+
+    if (host.startsWith('www.')) {
+      values.add(`${protocol}//${host.slice(4)}`);
+    } else {
+      values.add(`${protocol}//www.${host}`);
+    }
+  } catch {
+    // Fallback to only the configured value if URL parsing fails
+  }
+
+  return values;
+};
+
+const allowedOrigins = buildAllowedOrigins(env.FRONTEND_URL);
+
 // CORS configuration
 app.use(
   cors({
-    origin: env.FRONTEND_URL,
+    origin: (origin, callback) => {
+      // Allow non-browser requests (curl/health checks/postman)
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      const normalizedOrigin = origin.replace(/\/+$/, '');
+      if (allowedOrigins.has(normalizedOrigin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`Origin ${origin} is not allowed by CORS`));
+    },
     credentials: true,
   })
 );
