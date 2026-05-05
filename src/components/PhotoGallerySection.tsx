@@ -26,9 +26,14 @@ type GalleryManifest = {
   infra?: ManifestImageEntry[]; // allow alternate key
 };
 
-const S3_BASE_URL = import.meta.env.VITE_S3_BASE_URL || 'https://rphospital.s3.ap-south-1.amazonaws.com';
-const S3_DOCTORS_PREFIX = import.meta.env.VITE_S3_DOCTORS_PREFIX || 'doctors/';
-const S3_INFRA_PREFIX = import.meta.env.VITE_S3_INFRA_PREFIX || 'infrastructure/';
+const CDN_BASE_URL = (
+  import.meta.env.VITE_CDN_BASE_URL
+  || import.meta.env.VITE_CLOUDFRONT_BASE_URL
+  || import.meta.env.VITE_S3_BASE_URL
+  || 'https://rphospital.s3.ap-south-1.amazonaws.com'
+).replace(/\/+$/, '');
+const CDN_DOCTORS_PREFIX = (import.meta.env.VITE_CDN_DOCTORS_PREFIX || import.meta.env.VITE_S3_DOCTORS_PREFIX || 'doctors/').replace(/^\/+/, '');
+const CDN_INFRA_PREFIX = (import.meta.env.VITE_CDN_INFRA_PREFIX || import.meta.env.VITE_S3_INFRA_PREFIX || 'infrastructure/').replace(/^\/+/, '');
 const MANIFEST_URL = import.meta.env.VITE_GALLERY_MANIFEST_URL;
 
 const fallbackDoctors: GalleryItem[] = [
@@ -77,7 +82,8 @@ function buildUrl(keyOrUrl?: string, prefix?: string) {
   if (!keyOrUrl) return undefined;
   if (keyOrUrl.startsWith('http')) return keyOrUrl;
   const trimmed = keyOrUrl.replace(/^\/+/, '');
-  return `${S3_BASE_URL}/${(prefix || '').replace(/\/+$/, '')}/${trimmed}`;
+  const normalizedPrefix = (prefix || '').replace(/\/+$/, '').replace(/^\/+/, '');
+  return `${CDN_BASE_URL}${normalizedPrefix ? `/${normalizedPrefix}` : ''}/${trimmed}`;
 }
 
 function deriveTitleFromKey(key?: string) {
@@ -128,8 +134,8 @@ export default function PhotoGallerySection() {
         }
 
         const manifest = (await response.json()) as GalleryManifest;
-        const mappedDoctors = mapManifestImages(manifest.doctors, 'Doctors', S3_DOCTORS_PREFIX);
-        const mappedInfra = mapManifestImages(manifest.infrastructure || manifest.infra, 'Infrastructure', S3_INFRA_PREFIX);
+        const mappedDoctors = mapManifestImages(manifest.doctors, 'Doctors', CDN_DOCTORS_PREFIX);
+        const mappedInfra = mapManifestImages(manifest.infrastructure || manifest.infra, 'Infrastructure', CDN_INFRA_PREFIX);
 
         if (!mappedDoctors.length && !mappedInfra.length) {
           throw new Error('Manifest is empty');
