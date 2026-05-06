@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { socialLinks } from '../data/socialLinks';
 
 export default function FloatingActionButtons() {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +20,8 @@ export default function FloatingActionButtons() {
   const handleEmergency = () => {
     window.location.href = 'tel:+919032323258'; // Replace with your hospital's emergency number
   };
+
+  const socialButtons = socialLinks.filter((item) => item.enabled && (item.name === 'Instagram' || item.name === 'YouTube'));
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -96,6 +99,41 @@ export default function FloatingActionButtons() {
               Emergency Call
             </span>
           </motion.button>
+
+          {/* Social Media Quick Buttons */}
+          {socialButtons.map((social) => (
+            <motion.a
+              key={social.name}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.9 }}
+              className="group w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-lg relative"
+              style={{
+                backgroundColor: social.name === 'Instagram' ? '#E1306C' : '#FF0000',
+                boxShadow:
+                  social.name === 'Instagram'
+                    ? '0 4px 20px rgba(225,48,108,0.35)'
+                    : '0 4px 20px rgba(255,0,0,0.35)',
+              }}
+              aria-label={`Visit our ${social.name}`}
+            >
+              <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="white">
+                <path d={social.iconPath} />
+              </svg>
+              <span
+                className="absolute right-full mr-3 px-3 py-2 rounded-lg text-[12px] font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                style={{
+                  backgroundColor: social.name === 'Instagram' ? '#E1306C' : '#FF0000',
+                  color: 'white',
+                  fontFamily: 'var(--font-manrope)',
+                }}
+              >
+                {social.name}
+              </span>
+            </motion.a>
+          ))}
         </motion.div>
       )}
     </AnimatePresence>
