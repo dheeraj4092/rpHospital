@@ -9,6 +9,7 @@ import {
   IconUserHeart,
   IconPhoto,
   IconPhone,
+  IconBriefcase,
 } from '@tabler/icons-react';
 
 interface NavItem {
@@ -25,6 +26,7 @@ const allPages: NavItem[] = [
   { path: '/services', label: 'Services', icon: IconStethoscope, color: '#10B981', desc: 'Medical specialties' },
   { path: '/doctors', label: 'Doctors', icon: IconUserHeart, color: '#8B5CF6', desc: 'Meet our specialists' },
   { path: '/gallery', label: 'Gallery', icon: IconPhoto, color: '#EC4899', desc: 'Our facility photos' },
+  { path: '/careers', label: 'Careers', icon: IconBriefcase, color: '#22C55E', desc: 'Join our team' },
   { path: '/contact', label: 'Contact', icon: IconPhone, color: '#F59E0B', desc: 'Reach us anytime' },
 ];
 

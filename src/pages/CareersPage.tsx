@@ -56,6 +56,33 @@ const jobs: Job[] = [
     department: 'Administration',
     summary: 'Oversee front-line operations, manage schedules and reporting, and ensure service excellence across units.',
   },
+  {
+    id: 'staff-nurse',
+    title: 'Staff Nurse - Critical Care',
+    type: 'Full Time',
+    location: 'Nizamabad, Telangana',
+    experience: '2-5 Years',
+    department: 'ICU',
+    summary: 'Deliver compassionate bedside care, monitor patients, and coordinate with consultants in ICU shifts.',
+  },
+  {
+    id: 'lab-technician',
+    title: 'Lab Technician',
+    type: 'Full Time',
+    location: 'Nizamabad, Telangana',
+    experience: '2-5 Years',
+    department: 'Diagnostics',
+    summary: 'Perform sample processing and reporting with strong quality standards in biochemistry and pathology.',
+  },
+  {
+    id: 'front-office',
+    title: 'Front Office Executive',
+    type: 'Full Time',
+    location: 'Nizamabad, Telangana',
+    experience: '2-5 Years',
+    department: 'Administration',
+    summary: 'Manage patient-facing desk operations, admissions support, and appointment coordination with empathy.',
+  },
 ];
 
 const initialForm = (position: string): CreateCareerApplicationData => ({
@@ -306,7 +333,7 @@ export default function CareersPage() {
                   )}
                 </div>
 
-                <textarea className="sm:col-span-2 rounded-xl border px-4 py-3 text-[15px] min-h-[140px] outline-none resize-y" style={{ borderColor: 'rgba(26,36,114,0.18)' }} placeholder="Cover Letter / Why you are a good fit" value={formData.coverLetter} onChange={(e) => updateField('coverLetter', e.target.value)} required />
+                <textarea className="sm:col-span-2 rounded-xl border px-4 py-3 text-[15px] min-h-[140px] outline-none resize-y" style={{ borderColor: 'rgba(26,36,114,0.18)' }} placeholder="Cover Letter / Why you are a good fit in minimum 30 characters" value={formData.coverLetter} onChange={(e) => updateField('coverLetter', e.target.value)} required />
 
                 {errorMessage && <p className="sm:col-span-2 text-[14px] font-semibold" style={{ color: '#c62828' }}>{errorMessage}</p>}
                 {successMessage && <p className="sm:col-span-2 text-[14px] font-semibold" style={{ color: '#1f8f4d' }}>{successMessage}</p>}

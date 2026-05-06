@@ -9,6 +9,8 @@ const navLinks = [
   { label: 'Doctors', id: 'doctors' },
   { label: 'Gallery', id: 'gallery' },
   { label: 'Contacts', id: 'contacts' },
+  { label: 'Book Appointment', id: 'appointment' },
+  
 ];
 
 interface NavbarProps {
