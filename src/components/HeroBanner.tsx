@@ -63,14 +63,14 @@ const doctorProfiles = [
   },
   {
     id: 'doc-specialist-1',
-    name: 'RP Hospital Specialist Team',
-    title: 'Comprehensive Multi-Specialty Care',
+    name: 'Dr. B. Vinod',
+    title: 'Neurosurgery & General Surgery',
     photo: doctorImage3,
   },
   {
-    id: 'doc-specialist-2',
+    id: 'Dr. Babu',
     name: 'RP Hospital Clinical Experts',
-    title: 'Advanced Diagnostics & Treatment',
+    title: 'Anaesthesia & Critical Care',
     photo: doctorImage4,
   }
 ];
